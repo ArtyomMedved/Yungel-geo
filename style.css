@@ -1,0 +1,443 @@
+/* Основные стили для страницы */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    padding-top: 80px; /* Отступ равный высоте заголовка */
+}
+
+/* Стили для верхнего колонтитула */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.brand-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+.navbar a {
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.participants-button {
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border: 1px solid #333;
+    cursor: pointer;
+}
+
+/* Стили для секции с описанием */
+.intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    padding: 0 20px;
+    gap: 50px;
+}
+
+.text-content {
+    max-width: 600px;
+    text-align: left;
+}
+
+.intro h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.intro p {
+    line-height: 1.6;
+}
+
+/* Стили для коллажа и точек */
+.collage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.collage {
+    width: 300px;
+    height: 300px;
+    position: relative;
+}
+
+.collage-image {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+.collage-image.active {
+    opacity: 1;
+}
+
+.collage-image.fade {
+    opacity: 0;
+}
+
+.dots-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: #717171;
+}
+
+/* Стили для секции новостей */
+.news {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 800px;
+    text-align: center;
+}
+
+.news h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.news-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.news-image {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.news-text {
+    max-width: 60%;
+}
+
+.news-text h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Стили для секции видеоматериалов */
+.videos {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 800px;
+    text-align: center;
+}
+
+.videos h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.video-container iframe {
+    max-width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    border: none;
+}
+
+
+/* Стили для секции галереи */
+.gallery {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 800px;
+    text-align: center;
+}
+
+.gallery h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.gallery-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+}
+
+/* Стили для секции контактной информации */
+.contact-info {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 800px;
+    text-align: center;
+}
+
+.contact-info h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Стили для участников */
+.participants-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.participant {
+    text-align: center;
+    max-width: 150px;
+}
+
+.participant-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.participant h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.participant p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Контактные данные организации */
+.organization-contact {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.organization-contact p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Плавное появление элементов при прокрутке */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Эффект наведения на ссылки меню */
+.navbar a {
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Эффект масштабирования изображений галереи при наведении */
+.gallery-image {
+    transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+}
+
+/* Эффект для кнопки */
+.participants-button {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.participants-button:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Плавный переход для изображений в слайдере */
+.collage-image.fade {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.collage-image.active {
+    opacity: 1;
+}
+
+/* Медиа-запрос для телефонов */
+@media (max-width: 767px) {
+    /* Общие настройки для уменьшения отступов и выравнивания текста */
+    body {
+        padding-top: 60px;
+        font-size: 14px;
+    }
+
+    /* Заголовок */
+    .header {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .logo-container {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .brand-name {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .navbar a {
+        font-size: 14px;
+        margin: 5px 0;
+        display: block;
+        text-align: center;
+    }
+    
+    .participants-button {
+        margin: 10px 0;
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    /* Секция описания */
+    .intro {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .text-content {
+        max-width: 100%;
+    }
+
+    /* Коллаж */
+    .collage-container {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .collage {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Секция новостей */
+    .news {
+        padding: 0 10px;
+    }
+
+    .news-item {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .news-image {
+        width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .news-text {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    /* Видеоматериалы */
+    .video-container iframe {
+        width: 100%;
+        height: 200px;
+    }
+
+    /* Галерея */
+    .gallery-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Участники */
+    .participants-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    /* Контакты */
+    .organization-contact {
+        padding: 0 10px;
+        text-align: center;
+    }
+}
+
