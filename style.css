@@ -88,8 +88,8 @@ body {
 }
 
 .collage {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     position: relative;
 }
 
@@ -97,7 +97,7 @@ body {
     width: 100%;
     height: auto;
     position: absolute;
-    top: 0;
+    top: 75px;
     left: 0;
     transition: opacity 0.5s ease;
     opacity: 0;
@@ -333,111 +333,208 @@ body {
     opacity: 1;
 }
 
-/* Медиа-запрос для телефонов */
-@media (max-width: 767px) {
-    /* Общие настройки для уменьшения отступов и выравнивания текста */
-    body {
-        padding-top: 60px;
-        font-size: 14px;
-    }
-
-    /* Заголовок */
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 768px) {
+    /* Шапка сайта */
     .header {
-        flex-direction: column;
-        padding: 10px;
-    }
-    
-    .logo-container {
+        padding: 1px;
+        margin-left: 5px;
+        margin-right: 5px;
+        display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
+    }
+
+    .logo {
+        height: 30px;
         margin-bottom: 10px;
     }
 
     .brand-name {
         font-size: 20px;
-        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        font-size: 14px;
     }
 
     .navbar a {
         font-size: 14px;
-        margin: 5px 0;
-        display: block;
-        text-align: center;
-    }
-    
-    .participants-button {
-        margin: 10px 0;
-        font-size: 14px;
-        padding: 8px 16px;
+        margin: 0;
     }
 
-    /* Секция описания */
+    .participants-button {
+        font-size: 14px;
+        padding: 2px 2px;
+    }
+
+    /* Контент */
     .intro {
         flex-direction: column;
-        text-align: center;
+        gap: 15px;
         padding: 0 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .intro h2 {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 15px;
     }
 
     .text-content {
         max-width: 100%;
+        text-align: justify;
+        font-size: 16px;
+        line-height: 1.5;
     }
 
-    /* Коллаж */
     .collage-container {
         width: 100%;
-        margin: 0 auto;
+        margin-top: 1px;
     }
 
     .collage {
+        display: flex;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .collage-image {
         width: 100%;
         height: auto;
+        display: block;
+    }
+
+    .dots-container {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #aaa;
+        cursor: pointer;
+    }
+
+    .dot.active {
+        background-color: #333;
     }
 
     /* Секция новостей */
-    .news {
-        padding: 0 10px;
-    }
-
     .news-item {
+        display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
+        margin-top: 20px;
     }
 
     .news-image {
         width: 100%;
         height: auto;
-        margin-right: 0;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     .news-text {
         max-width: 100%;
-        text-align: center;
+        font-size: 16px;
     }
 
     /* Видеоматериалы */
+    .videos {
+        padding: 10px;
+    }
+
     .video-container iframe {
         width: 100%;
         height: 200px;
+        margin-top: 10px;
     }
 
     /* Галерея */
-    .gallery-image {
-        width: 100px;
-        height: 100px;
+    .gallery-container {
+        gap: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
     }
 
-    /* Участники */
+    .gallery-image {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Контактная информация */
     .participants-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-wrap: wrap;
         gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .participant {
+        max-width: 100px;
+        text-align: center;
+    }
+
+    .participant-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 5px;
+    }
+
+    .organization-contact p {
+        font-size: 14px;
     }
     
-    /* Контакты */
-    .organization-contact {
-        padding: 0 10px;
-        text-align: center;
+}
+
+
+/* Убираем горизонтальный скроллинг */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Обнуляем отступы для мобильных устройств */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    /* Уменьшаем отступы для текста и изображения */
+    .intro {
+        margin-bottom: 0;
+    }
+
+    .text-content {
+        margin-bottom: 0; /* Убираем отступ между текстом и изображением */
+    }
+
+    .collage-container {
+        margin-top: -70px; /* Поднимаем изображение вверх, уменьшая расстояние */
+    }
+
+    .news-image {
+        display: block;
+        margin: 0 auto; /* Центрирует изображение */
+        max-width: 80%; /* Ограничивает ширину изображения, чтобы оно не выходило за пределы экрана */
+        height: auto;
     }
 }
 
