@@ -3,17 +3,12 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const pool = require('./db'); // Подключение к базе данных
-<<<<<<< HEAD
-=======
 const quizRoutes = require('./quizzes');
->>>>>>> 8612256 (Добавлена новая версия продукта)
 
 const app = express();
 app.use(express.static(path.join(__dirname))); // Разрешить статические файлы
 app.use(bodyParser.urlencoded({ extended: true })); // Для парсинга данных форм
 
-<<<<<<< HEAD
-=======
 // Используем встроенные функции для обработки JSON и URL-encoded данных
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -21,7 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 // Роуты для работы с квизами
 app.use('/api/quizzes', quizRoutes);
 
->>>>>>> 8612256 (Добавлена новая версия продукта)
 // Конфигурация multer для сохранения файлов в папке "doc"
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -43,8 +37,6 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-<<<<<<< HEAD
-=======
 // Страница для готового квиза
 app.get('/quiz', (req, res) => {
     res.sendFile(path.join(__dirname, 'quiz.html'));
@@ -60,7 +52,6 @@ app.get('/admin-quiz', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
->>>>>>> 8612256 (Добавлена новая версия продукта)
 // Эндпоинт для проверки пользователя
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
