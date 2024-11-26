@@ -201,7 +201,11 @@ body {
 .gallery {
     margin: 50px auto;
     padding: 20px;
+<<<<<<< HEAD
     max-width: 800px;
+=======
+    max-width: 1200px; /* Увеличен max-width для большего пространства */
+>>>>>>> 8612256 (Добавлена новая версия продукта)
     text-align: center;
 }
 
@@ -212,15 +216,26 @@ body {
 }
 
 .gallery-container {
+<<<<<<< HEAD
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+=======
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Сетка с автоадаптацией */
+    gap: 15px;
+>>>>>>> 8612256 (Добавлена новая версия продукта)
     justify-content: center;
 }
 
 .gallery-image {
+<<<<<<< HEAD
     width: 200px;
     height: 200px;
+=======
+    width: 100%;
+    height: 250px; /* Увеличен размер изображения */
+>>>>>>> 8612256 (Добавлена новая версия продукта)
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s ease;
@@ -229,6 +244,57 @@ body {
 .gallery-image:hover {
     transform: scale(1.05);
 }
+<<<<<<< HEAD
+=======
+/* Стили для секции квизов */
+.quiz-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto; /* Центрирует контейнер */
+}
+
+.quiz-container h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#quiz-list {
+    list-style: none; /* Убирает стандартные маркеры */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%; /* Занимает всю доступную ширину */
+}
+
+#quiz-list li {
+    background-color: #f9f9f9; /* Светлый фон */
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center; /* Центрирует текст */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#quiz-list li:hover {
+    background-color: #e0e0e0; /* Цвет при наведении */
+    transform: translateY(-3px); /* Легкое поднятие при наведении */
+}
+
+#quiz-list li:active {
+    transform: translateY(0); /* Возвращает при нажатии */
+}
+
+>>>>>>> 8612256 (Добавлена новая версия продукта)
 
 /* Стили для секции контактной информации */
 .contact-info {
