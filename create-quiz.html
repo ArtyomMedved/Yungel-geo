@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Создание Квиза</title>
     <script>
+        // Добавление нового вопроса
         function addQuestion() {
             const container = document.getElementById('questions');
             const questionDiv = document.createElement('div');
@@ -19,14 +20,16 @@
                 <div class="options">
                     <div class="option">
                         <input type="text" placeholder="Текст ответа">
-                        <input type="radio" name="correct_${questionIndex}" value="0"> Приавльный ответ
+                        <input type="radio" name="correct_${questionIndex}" value="0"> Правильный ответ
                     </div>
                 </div>
-                <button onclick="addOption(this, ${questionIndex})">Добавить Вопрос</button>
+                <button onclick="addOption(this, ${questionIndex})">Добавить Вариант</button>
+                <button onclick="removeQuestion(this)">Удалить Вопрос</button>
             `;
             container.appendChild(questionDiv);
         }
     
+        // Добавление нового варианта ответа
         function addOption(button, questionIndex) {
             const optionsContainer = button.previousElementSibling;
             const optionIndex = optionsContainer.children.length;
@@ -34,48 +37,103 @@
             const optionDiv = document.createElement('div');
             optionDiv.classList.add('option');
             optionDiv.innerHTML = `
-                <input type="text" placeholder="Option text">
-                <input type="radio" name="correct_${questionIndex}" value="${optionIndex}"> Correct
+                <input type="text" placeholder="Текст ответа">
+                <input type="radio" name="correct_${questionIndex}" value="${optionIndex}"> Правильный
+                <button onclick="removeOption(this)">Удалить Ответ</button>
             `;
             optionsContainer.appendChild(optionDiv);
         }
-    
+
+        // Удаление варианта ответа
+        function removeOption(button) {
+            const optionDiv = button.parentElement;
+            optionDiv.remove();
+        }
+
+        // Удаление вопроса
+        function removeQuestion(button) {
+            const questionDiv = button.parentElement;
+            questionDiv.remove();
+        }
+
+        // Загрузка данных квиза для редактирования
+        async function loadQuiz() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id'); // Получаем ID из URL
+
+            if (!id) return; // Если ID нет, ничего не делаем (режим создания)
+
+            try {
+                const response = await fetch(`/api/quizzes/${id}`);
+                if (!response.ok) {
+                    throw new Error('Failed to load quiz');
+                }
+
+                const quiz = await response.json();
+
+                // Заполняем данные квиза
+                document.getElementById('name').value = quiz.name;
+                document.getElementById('description').value = quiz.description;
+
+                // Заполняем вопросы
+                quiz.questions.forEach((question, questionIndex) => {
+                    addQuestion(); // Добавляем вопрос в DOM
+                    const questionDiv = document.querySelectorAll('.question')[questionIndex];
+                    questionDiv.querySelector('.text').value = question.text;
+                    questionDiv.querySelector('.time-limit').value = question.time_limit;
+
+                    // Заполняем варианты ответа
+                    const optionsContainer = questionDiv.querySelector('.options');
+                    question.options.forEach((option, optionIndex) => {
+                        addOption(questionDiv.querySelector('button'), questionIndex);
+                        const optionDiv = optionsContainer.children[optionIndex];
+                        optionDiv.querySelector('input[type="text"]').value = option.text;
+                        optionDiv.querySelector('input[type="radio"]').checked = option.is_correct;
+                    });
+                });
+            } catch (err) {
+                console.error('Error loading quiz:', err);
+                alert('Failed to load quiz for editing.');
+            }
+        }
+
+        // Сохранение данных квиза
         async function saveQuiz() {
             const name = document.getElementById('name').value;
             const description = document.getElementById('description').value;
-    
+
             const questions = [];
             let hasError = false; // Flag for error checking
-    
+
             document.querySelectorAll('.question').forEach((questionDiv, questionIndex) => {
                 const questionText = questionDiv.querySelector('.text').value;
                 const timeLimit = questionDiv.querySelector('.time-limit').value;
-    
+
                 const options = [];
                 let correctOptionId = null; // Correct option identifier
-    
+
                 const optionInputs = questionDiv.querySelectorAll('.option');
                 optionInputs.forEach((optionDiv, index) => {
                     const optionText = optionDiv.querySelector('input[type="text"]').value;
                     const isCorrect = optionDiv.querySelector('input[type="radio"]').checked;
-    
+
                     options.push({
                         text: optionText,
                         isCorrect: isCorrect,
                     });
-    
+
                     // If this option is correct, save its index
                     if (isCorrect) {
                         correctOptionId = index; // Save the index of the correct option
                     }
                 });
-    
+
                 if (correctOptionId === null) {
                     alert(`Please select a correct option for question: ${questionText}`);
                     hasError = true;
                     return; // Stop execution if no correct option is selected
                 }
-    
+
                 questions.push({
                     text: questionText,
                     timeLimit,
@@ -83,15 +141,15 @@
                     correctOptionId // Add correctOptionId to the question object
                 });
             });
-    
+
             if (hasError) return; // If there's an error, stop saving the quiz
-    
+
             const response = await fetch('/api/quizzes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, description, questions }),
             });
-    
+
             if (response.ok) {
                 alert('Quiz saved successfully!');
                 location.href = '/admin.html';
@@ -99,6 +157,8 @@
                 alert('Failed to save quiz.');
             }
         }
+
+        window.onload = loadQuiz;
     </script>
     <style>
         body {
@@ -206,6 +266,18 @@
         }
 
         button.save:hover {
+            background-color: #c82333;
+        }
+
+        button.remove {
+            background-color: #dc3545;
+            color: white;
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+
+        button.remove:hover {
             background-color: #c82333;
         }
     </style>
