@@ -52,6 +52,11 @@ app.get('/admin-quiz', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
+// Страница админа квизов
+app.get('/results', (req, res) => {
+    res.sendFile(path.join(__dirname, 'rezults-quiz.html'));
+});
+
 // Эндпоинт для проверки пользователя
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;

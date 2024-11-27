@@ -119,6 +119,19 @@
         </div>
     </section>
 
+<!-- Модальное окно для поделиться -->
+<div id="shareModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h3>Поделиться квизом</h3>
+        <!-- Элемент canvas для QR-кода -->
+        <canvas id="qr-code"></canvas>
+        <input type="text" id="quizLink" readonly />
+        <button onclick="copyLink()">Копировать ссылку</button>
+    </div>
+</div>
+
+
     <!-- Контактная информация -->
 <section class="contact-info fade-in" id="contact">
     <h2>Контактная информация</h2>
@@ -242,21 +255,93 @@ document.addEventListener('DOMContentLoaded', handleScroll);
 });
 
     </script>
+    <!-- Подключение библиотеки QR-кодов -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
     <script>
         async function fetchQuizzes() {
             const response = await fetch('/api/quizzes');
             const quizzes = await response.json();
             const quizList = document.getElementById('quiz-list');
-
+    
             quizzes.forEach(quiz => {
                 const li = document.createElement('li');
                 li.textContent = quiz.name;
-                li.onclick = () => location.href = `/quiz?id=${quiz.id}`;
+    
+                // Кнопка "Поделиться"
+                const shareButton = document.createElement('button');
+                shareButton.textContent = "Поделиться";
+                shareButton.onclick = () => openModal(quiz.id);
+
+                // Кнопка "Перейти к результатам"
+                const resultsButton = document.createElement('button');
+                resultsButton.textContent = "Перейти к результатам";
+                resultsButton.onclick = () => {
+                    window.location.href = `https://yungelgeo.ru/results?id=${quiz.id}`;
+                };
+    
+                li.appendChild(shareButton);
+                li.appendChild(resultsButton);
                 quizList.appendChild(li);
             });
         }
+    
+        function openModal(quizId) {
+    // Открыть модальное окно
+    const modal = document.getElementById('shareModal');
+    modal.style.display = "block";
 
+    // Генерация ссылки на квиз
+    const quizLink = `https://yungelgeo.ru/quiz?id=${quizId}`;
+    console.log("quizLink:", quizLink);  // Log the generated link
+    console.log("QR код сгенерирован для URL:", quizLink);
+
+    // Получаем сам элемент canvas для QR-кода
+    const qrCodeCanvas = document.getElementById('qr-code');
+    if (!qrCodeCanvas || !(qrCodeCanvas instanceof HTMLCanvasElement)) {
+        console.error("Элемент для QR-кода не является <canvas>.");
+        return;
+    }
+
+    // Очистить canvas перед генерацией нового QR-кода
+    const context = qrCodeCanvas.getContext('2d');
+    context.clearRect(0, 0, qrCodeCanvas.width, qrCodeCanvas.height);
+
+    // Генерация QR-кода
+    QRCode.toCanvas(qrCodeCanvas, quizLink, function (error) {
+        if (error) {
+            console.error("Ошибка при генерации QR-кода:", error);
+            alert("Ошибка при генерации QR-кода. Пожалуйста, попробуйте снова.");
+        } else {
+            console.log("QR код успешно сгенерирован!");
+        }
+    });
+
+    // Убедитесь, что ссылка корректная
+    if (!quizLink) {
+        alert("Ошибка: ссылка на квиз не была сгенерирована.");
+        return;
+    }
+
+    // Заполнение поля с ссылкой
+    document.getElementById('quizLink').value = quizLink;
+}
+
+        function closeModal() {
+            // Закрыть модальное окно
+            const modal = document.getElementById('shareModal');
+            modal.style.display = "none";
+        }
+    
+        function copyLink() {
+            const linkInput = document.getElementById('quizLink');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999); // Для мобильных устройств
+            document.execCommand("copy");
+            alert("Ссылка скопирована!");
+        }
+    
         window.onload = fetchQuizzes;
-    </script>            
+    </script>    
 </body>
 </html>

@@ -143,4 +143,35 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.post('/results', async (req, res) => {
+    const { quizId, teamName, correctAnswers, totalQuestions } = req.body;
+
+    try {
+        const query = 'INSERT INTO results (quiz_id, team_name, correct_answers, total_questions) VALUES (?, ?, ?, ?)';
+        await pool.query(query, [quizId, teamName, correctAnswers, totalQuestions]);
+        res.status(201).json({ message: 'Result saved successfully' });
+    } catch (err) {
+        console.error('Error saving result:', err);
+        res.status(500).json({ error: 'Failed to save result' });
+    }
+});
+
+// Получить таблицу результатов для квиза
+router.get('/:quizId/results', async (req, res) => {
+    const { quizId } = req.params;
+
+    try {
+        const [results] = await pool.query(
+            `SELECT team_name, correct_answers, total_questions 
+             FROM results 
+             WHERE quiz_id = ?`, [quizId]
+        );
+
+        res.json(results);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
 module.exports = router;

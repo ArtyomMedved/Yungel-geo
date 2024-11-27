@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
     <script>
+        let teamName = '';
+        let correctAnswersCount = 0;
+
+        function startQuiz() {
+            teamName = document.getElementById('team-name').value.trim();
+
+            if (!teamName) {
+                alert('Введите название команды!');
+                return;
+            }
+
+            // Скрываем ввод команды и начинаем загрузку квиза
+            document.getElementById('team-entry').style.display = 'none';
+            const urlParams = new URLSearchParams(window.location.search);
+            const quizId = urlParams.get('id'); // Получаем ID квиза из URL
+            if (quizId) {
+                loadQuiz(quizId);
+            } else {
+                alert("Quiz ID is missing in URL.");
+            }
+        }
+
         let quizData = {}; // Переменная для хранения данных квиза
         let currentQuestionIndex = 0;
         let timerInterval = null;
@@ -63,17 +85,21 @@
             startTimer(question.time_limit); // Начинаем отсчет времени
         }
 
-        function selectOption(selectedOptionId, buttonElement) {
-            // Если был выбран другой вариант, сбрасываем подсветку предыдущего
-            if (selectedButton) {
-                selectedButton.style.backgroundColor = ''; // Сброс подсветки
-            }
-            
-            // Подсвечиваем выбранный вариант
-            buttonElement.style.backgroundColor = "#ffeb3b"; // Желтый цвет, как подсветка
-            selectedButton = buttonElement; // Сохраняем выбранную кнопку
-            this.selectedOptionId = selectedOptionId; // Запоминаем выбранный вариант
-        }
+        function selectOption(optionId, buttonElement) {
+    // Если был выбран другой вариант, сбрасываем подсветку предыдущего
+    if (selectedButton) {
+        selectedButton.style.backgroundColor = ''; // Сброс подсветки
+    }
+
+    // Подсвечиваем выбранный вариант
+    buttonElement.style.backgroundColor = "#ffeb3b"; // Желтый цвет, как подсветка
+    selectedButton = buttonElement; // Сохраняем выбранную кнопку
+
+    // Присваиваем выбранный вариант правильной переменной
+    quizData.selectedOptionId = optionId; // Сохраняем выбранный вариант в объекте
+}
+
+
 
         function startTimer(timeLimit) {
             let timeLeft = timeLimit;
@@ -94,37 +120,89 @@
         }
 
         function checkAnswer() {
-            const question = quizData.questions[currentQuestionIndex];
-            const correctOptionId = question.options.find(option => option.is_correct).id;
+    const question = quizData.questions[currentQuestionIndex];
+    const correctOptionId = question.options.find(option => option.is_correct).id;
 
-            // Показываем правильный вариант ответа
-            const optionsButtons = document.querySelectorAll('#options button');
-            optionsButtons.forEach(button => {
-                const optionId = question.options.find(option => option.text === button.textContent)?.id;
-                if (optionId === correctOptionId) {
-                    button.style.backgroundColor = "#4caf50"; // Зеленый для правильного ответа
-                } else if (optionId === selectedOptionId && selectedOptionId !== correctOptionId) {
-                    button.style.backgroundColor = "#f44336"; // Красный для неправильного ответа
+    console.log('Selected Option:', quizData.selectedOptionId); // Используем quizData.selectedOptionId
+    console.log('Correct Option:', correctOptionId);
+
+    // Сравниваем выбранный ответ
+    if (quizData.selectedOptionId === correctOptionId) {
+        correctAnswersCount++;
+    }
+
+    // Показываем правильный вариант ответа
+    const optionsButtons = document.querySelectorAll('#options button');
+    optionsButtons.forEach(button => {
+        const optionId = question.options.find(option => option.text === button.textContent)?.id;
+        if (optionId === correctOptionId) {
+            button.style.backgroundColor = "#4caf50"; // Зеленый для правильного ответа
+        } else if (optionId === quizData.selectedOptionId && quizData.selectedOptionId !== correctOptionId) {
+            button.style.backgroundColor = "#f44336"; // Красный для неправильного ответа
+        }
+    });
+
+    // Переходим к следующему вопросу через 1 секунду
+    setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.questions.length) {
+            displayQuestion();
+        } else {
+            finishQuiz(); // Завершение квиза
+        }
+    }, 1000);
+}
+
+
+
+        // Заключение квиза
+        async function finishQuiz() {
+            const totalQuestions = quizData.questions.length;
+
+            alert(`Квиз завершен! Итог команды "${teamName}": ${correctAnswersCount}/${totalQuestions}`);
+
+            // Сохраняем результаты в базу данных
+            try {
+                const response = await fetch('/api/quizzes/results', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        quizId: quizData.id,
+                        teamName: teamName,
+                        correctAnswers: correctAnswersCount,
+                        totalQuestions: totalQuestions
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save results.');
                 }
-            });
 
-            // Переходим к следующему вопросу через 1 секунду
-            setTimeout(() => {
-                currentQuestionIndex++;
-                displayQuestion(); // Переходим к следующему вопросу
-            }, 1000); // Ждем 1 секунду перед переходом
+                alert('Результаты сохранены.');
+                // Скрываем все элементы и показываем кнопку
+                document.body.innerHTML = '';
+                const button = document.createElement('button');
+                button.textContent = 'Посмотреть результаты';
+                button.onclick = () => {
+                    const quizId = new URLSearchParams(window.location.search).get('id');
+                    if (quizId) {
+                        window.location.href = '/results?id=' + quizId;
+                    }
+                };
+                button.style.fontSize = '1.5rem';
+                button.style.padding = '20px 40px';
+                button.style.backgroundColor = '#4CAF50';
+                button.style.color = 'white';
+                button.style.border = 'none';
+                button.style.borderRadius = '5px';
+                button.style.cursor = 'pointer';
+                document.body.appendChild(button);
+            } catch (err) {
+                console.error('Error saving results:', err);
+                alert('Ошибка при сохранении результатов.');
+            }
         }
 
-        // Вызовите эту функцию, передав ID квиза, чтобы загрузить его
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const quizId = urlParams.get('id'); // Получаем ID квиза из URL
-            if (quizId) {
-                loadQuiz(quizId);
-            } else {
-                alert("Quiz ID is missing in URL.");
-            }
-        };
     </script>
     <style>
      /* Общие стили для сайта */
@@ -260,6 +338,11 @@ body {
 <body>
     <h1 id="quiz-title"></h1>
     <p id="quiz-description"></p>
+
+    <div id="team-entry" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+        <input id="team-name" type="text" placeholder="Введите название команды" style="padding: 10px; font-size: 1rem; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 10px;" />
+        <button onclick="startQuiz()" style="padding: 10px 20px; font-size: 1rem; background-color: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer;">Начать квиз</button>
+    </div>    
 
     <div>
         <h2 id="question-text"></h2>
