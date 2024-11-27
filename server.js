@@ -49,7 +49,7 @@ app.get('/create-quiz', (req, res) => {
 
 // Страница админа квизов
 app.get('/admin-quiz', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin.html'));
+    res.sendFile(path.join(__dirname, 'admin-quiz.html'));
 });
 
 // Страница админа квизов
