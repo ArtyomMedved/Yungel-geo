@@ -260,31 +260,41 @@ document.addEventListener('DOMContentLoaded', handleScroll);
 
     <script>
         async function fetchQuizzes() {
-            const response = await fetch('/api/quizzes');
-            const quizzes = await response.json();
-            const quizList = document.getElementById('quiz-list');
-    
-            quizzes.forEach(quiz => {
-                const li = document.createElement('li');
-                li.textContent = quiz.name;
-    
-                // Кнопка "Поделиться"
-                const shareButton = document.createElement('button');
-                shareButton.textContent = "Поделиться";
-                shareButton.onclick = () => openModal(quiz.id);
+    const response = await fetch('/api/quizzes');
+    const quizzes = await response.json();
+    const quizList = document.getElementById('quiz-list');
 
-                // Кнопка "Перейти к результатам"
-                const resultsButton = document.createElement('button');
-                resultsButton.textContent = "Перейти к результатам";
-                resultsButton.onclick = () => {
-                    window.location.href = `https://yungelgeo.ru/results?id=${quiz.id}`;
-                };
-    
-                li.appendChild(shareButton);
-                li.appendChild(resultsButton);
-                quizList.appendChild(li);
-            });
-        }
+    quizzes.forEach(quiz => {
+        const li = document.createElement('li');
+        li.textContent = quiz.name;
+
+        // Обработчик клика по элементу списка
+        li.onclick = () => {
+            window.location.href = `https://yungelgeo.ru/quiz?id=${quiz.id}`;
+        };
+
+        // Кнопка "Поделиться"
+        const shareButton = document.createElement('button');
+        shareButton.textContent = "Поделиться";
+        shareButton.onclick = (event) => {
+            event.stopPropagation(); // Останавливаем распространение события, чтобы не сработал li.onclick
+            openModal(quiz.id);
+        };
+
+        // Кнопка "Перейти к результатам"
+        const resultsButton = document.createElement('button');
+        resultsButton.textContent = "Перейти к результатам";
+        resultsButton.onclick = (event) => {
+            event.stopPropagation(); // Останавливаем распространение события, чтобы не сработал li.onclick
+            window.location.href = `https://yungelgeo.ru/results?id=${quiz.id}`;
+        };
+
+        li.appendChild(shareButton);
+        li.appendChild(resultsButton);
+        quizList.appendChild(li);
+    });
+}
+
     
         function openModal(quizId) {
     // Открыть модальное окно
