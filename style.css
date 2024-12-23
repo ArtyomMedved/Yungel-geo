@@ -169,6 +169,14 @@ body {
     margin-bottom: 10px;
 }
 
+/* Стили для карты с метками */
+.maps { 
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 1000px;
+    text-align: center;
+}
+
 /* Стили для секции видеоматериалов */
 .videos {
     margin: 50px auto;
@@ -672,4 +680,3 @@ html, body {
         height: auto;
     }
 }
-

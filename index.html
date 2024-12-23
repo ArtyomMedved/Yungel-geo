@@ -78,6 +78,12 @@
         <hr>
     </section>
     
+    <!-- Карата с метками -->
+    <section class="maps fade-in" id="maps">
+        <h2>Карта локаций</h2>
+        <div id="yandex-map" style="width: 100%; height: 300px;"></div>
+    </section>
+    
 
     <!-- Видеоматериалы -->
     <section class="videos fade-in" id="videos">
@@ -352,6 +358,29 @@ document.addEventListener('DOMContentLoaded', handleScroll);
         }
     
         window.onload = fetchQuizzes;
+    </script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=acfe7bc2-901c-4b6b-b744-72632398d2a9&lang=ru_RU" type="text/javascript"></script>
+    <script>
+        ymaps.ready(init);
+        function init() {
+            var map = new ymaps.Map("yandex-map", {
+                center: [54.593982, 52.449669],
+                zoom: 12
+            });
+    
+            var placemarks = [
+                { coordinates: [55.751574, 37.573856], hint: "Центральная локация", balloonContent: "Это центральная точка на карте." },
+                { coordinates: [55.761574, 37.583856], hint: "Вторая локация", balloonContent: "Описание второй точки." }
+            ];
+    
+            placemarks.forEach(function (place) {
+                var placemark = new ymaps.Placemark(
+                    place.coordinates,
+                    { hintContent: place.hint, balloonContent: place.balloonContent }
+                );
+                map.geoObjects.add(placemark);
+            });
+        }
     </script>    
 </body>
 </html>
