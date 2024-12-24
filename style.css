@@ -430,6 +430,43 @@ button:hover {
     margin: 5px 0;
 }
 
+.support-info {
+    margin-top: 40px;
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9; /* Добавление светлого фона */
+    border-radius: 10px; /* Скругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для визуальной глубины */
+}
+
+.support-info h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.support-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Расстояние между логотипами */
+}
+
+.logo-image {
+    max-width: 200px; /* Ограничение по ширине */
+    max-height: 100px;
+    height: auto; /* Автоматическое сохранение пропорций */
+    object-fit: contain; /* Уменьшение или обрезка изображения для аккуратности */
+    border-radius: 5px; /* Слегка скругленные углы */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Анимация при наведении */
+}
+
+.logo-image:hover {
+    transform: scale(1.1); /* Увеличение логотипа при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Увеличение тени при наведении */
+}
+
 /* Плавное появление элементов при прокрутке */
 .fade-in {
     opacity: 0;
