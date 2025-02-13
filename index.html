@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Юнгел - юные геологи Лениногорска</title>
+    <link rel="icon" type="image/x-icon" href="./img/ungeo-64x64-cf2.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo-container">
+        <img src="./img/ungeo-64x64-cf2.png" alt="Логотип" class="logo" />
+        <h1 class="brand-name">Yungel Geo</h1>
+      </div>
+      <nav class="navbar">
+        <a href="#about">Про нас</a>
+        <a href="#news">Новости</a>
+        <a href="#maps">Карта локаций</a>
+        <a href="#videos">Видеоматериалы</a>
+        <a href="#gallery">Галереи и выставки</a>
+        <a href="#quiz">Квизы</a>
+        <a href="#contact">Контактная информация</a>
+        <button
+          class="participants-button"
+          onclick="window.location.href='/login'"
+        >
+          Для участников
+        </button>
+      </nav>
+    </div>
+
+    <!-- Описание -->
+    <section class="intro fade-in" id="about">
+      <div class="text-content">
+        <h2>От глубин Земли к вершинам знаний.</h2>
+        <p>
+          Юнгел — команда энтузиастов-геологов, объединенных страстью к
+          исследованию уникальных природных объектов. Мы изучаем геологические
+          достопримечательности, участвуем в олимпиадах и научных конкурсах по
+          геологии и географии, стремясь углубить знания о земных процессах и
+          ландшафтах. Наша миссия — популяризация геологических знаний, обмен
+          опытом и открытие новых горизонтов в науке о Земле.
+        </p>
+      </div>
+      <div class="collage-container">
+        <div class="collage">
+          <img
+            src="./img/news-posts/8ecf0126-bfdd-418f-9e8e-2496e42101a3.JPG"
+            alt="Заглушка 1"
+            class="collage-image active"
+          />
+          <img
+            src="./img/news-posts/b9d45691-4fd1-4b10-9033-4c26ccb58c54.JPG"
+            alt="Заглушка 2"
+            class="collage-image"
+          />
+          <img
+            src="./img/news-posts/Galleries and exhibitions/ungeo_1-235x150-69b.jpg"
+            alt="Заглушка 3"
+            class="collage-image"
+          />
+        </div>
+        <div class="dots-container">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Новости -->
+    <section class="news fade-in" id="news">
+      <h2>Новости</h2>
+      <hr />
+      <div class="news-item">
+        <img
+          src="./img/news-posts/2024-11-02 02.06.23.jpg"
+          alt="Фото новости 1"
+          class="news-image"
+        />
+        <div class="news-text">
+          <h3>
+            Вот такие теплые слова мы получили от руководителя команды «Юнгел»☺️
+          </h3>
+          <p>
+            Светлана Владимировна! Вам спасибо за подготовку таких замечательных
+            юных геологов!👍
+          </p>
+          <a href="https://t.me/ungeort/260">Полная статья</a>
+          <p>19.07.2024</p>
+        </div>
+      </div>
+      <hr />
+      <div class="news-item">
+        <img
+          src="./img/news-posts/photo_2024-11-02 02.10.20.jpeg"
+          alt="Фото новости 2"
+          class="news-image"
+        />
+        <div class="news-text">
+          <h3>
+            Вот и состоялась заключительная линейка нашей олимпиады. Мы
+            наградили победителей всех соревнований. Оглашаем результаты 🏆✌️
+          </h3>
+          <p>🏆Соревнования «Основы нефтяной геологии»</p>
+          <p></p>
+          <p>
+            Наградил чемпионов ректор АГТУ «Высшая школа нефти» Дьяконов
+            Александр Анатольевич.
+          </p>
+          <p></p>
+          <p>1️⃣ Команда «Азурит» Нижнекамск</p>
+          <p>2️⃣ Команда «Юнгел» Лениногорск</p>
+          <p>3️⃣ Команда «Трилобиты» Тетюши</p>
+          <p>4️⃣ Команда «Вертикаль» Казань</p>
+          <p>5️⃣ Команда «Эдельвейс» Бугульма</p>
+          <a href="https://t.me/ungeort/223">Полная статья</a>
+          <p>16.07.2024</p>
+        </div>
+      </div>
+      <hr />
+    </section>
+
+    <!-- Карата с метками -->
+    <section class="maps fade-in" id="maps">
+      <h2>Карта локаций</h2>
+      <div id="map" style="width: 100%; height: 300px"></div>
+    </section>
+
+    <!-- Видеоматериалы -->
+    <section class="videos fade-in" id="videos">
+      <h2>Видеоматериалы</h2>
+      <div class="video-container">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/XfvaCQ-7UQ8?si=fVlQev_nGFAI9x17&amp;start=148"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+        <iframe
+          src="https://vk.com/video_ext.php?oid=-74110205&id=456239077&hash=d52f8eff705c8d6d"
+          width="640"
+          height="360"
+          frameborder="0"
+          allowfullscreen="1"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+        ></iframe>
+      </div>
+    </section>
+
+    <!-- Галереи и выставки -->
+    <section class="gallery fade-in" id="gallery">
+      <h2>Галереи и выставки</h2>
+      <div class="gallery-container">
+        <img
+          src="./img/news-posts/Galleries and exhibitions/школа.jpeg"
+          alt="Галерея 2"
+          class="gallery-image"
+        />
+        <img
+          src="img/news-posts/Galleries and exhibitions/GWMNTT1K7Xe0LJII5IhAo_KMgb5tS67WdtHz2Sb03vRWJSWqXm7MPzYKuASi2VN8V29A5QNHsT0V268D65ZQrGLX.jpg"
+          alt="Галерея 1"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/ungeo_2-235x150-7ec.jpg"
+          alt="Галерея 3"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/ungeo_1-235x150-69b.jpg"
+          alt="Галерея 4"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/ungeo_4-235x150-570.jpg"
+          alt="Галерея 5"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/ungeo_11-235x150-fff.jpg"
+          alt="Галерея 6"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/7.jpg"
+          alt="Галерея 7"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/8.jpg"
+          alt="Галерея 8"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/9.jpg"
+          alt="Галерея 9"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/10.jpg"
+          alt="Галерея 10"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/11.jpg"
+          alt="Галерея 11"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/12.jpg"
+          alt="Галерея 12"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/13.jpg"
+          alt="Галерея 13"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/15.jpg"
+          alt="Галерея 15"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/16.jpg"
+          alt="Галерея 16"
+          class="gallery-image"
+        />
+        <img
+          src="./img/news-posts/Galleries and exhibitions/17.jpg"
+          alt="Галерея 17"
+          class="gallery-image"
+        />
+      </div>
+    </section>
+
+    <!-- Квизы -->
+    <section class="Quiz fade-in" id="quiz">
+      <div class="quiz-container">
+        <h2>Квизы</h2>
+        <ul id="quiz-list"></ul>
+      </div>
+    </section>
+
+    <!-- Модальное окно для поделиться -->
+    <div id="shareModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h3>Поделиться квизом</h3>
+        <!-- Элемент canvas для QR-кода -->
+        <canvas id="qr-code"></canvas>
+        <input type="text" id="quizLink" readonly />
+        <button onclick="copyLink()">Копировать ссылку</button>
+      </div>
+    </div>
+
+    <!-- Контактная информация -->
+    <section class="contact-info fade-in" id="contact">
+      <h2>Контактная информация</h2>
+
+      <!-- Секция с участниками -->
+      <div class="participants">
+        <h3>Наша команда</h3>
+        <div class="participants-container">
+          <!-- Пример одного участника -->
+          <div class="participant">
+            <img
+              src="./img/contact-info/Медведев.jpeg"
+              alt="Участник 1"
+              class="participant-image"
+            />
+            <h4>Медведев Артем</h4>
+            <p>участник</p>
+          </div>
+          <div class="participant">
+            <img
+              src="./img/contact-info/Нагимова.jpeg"
+              alt="Участник 2"
+              class="participant-image"
+            />
+            <h4>Нагимова Рената</h4>
+            <p>участник</p>
+          </div>
+          <div class="participant">
+            <img
+              src="./img/contact-info/Степанова.jpeg"
+              alt="Участник 3"
+              class="participant-image"
+            />
+            <h4>Степанова Светлана</h4>
+            <p>участник</p>
+          </div>
+          <div class="participant">
+            <img
+              src="./img/contact-info/Кашапов.jpeg"
+              alt="Участник 4"
+              class="participant-image"
+            />
+            <h4>Кашапов Камиль</h4>
+            <p>участник</p>
+          </div>
+          <div class="participant">
+            <img
+              src="./img/contact-info/Хустнутдинов.png"
+              alt="Участник 5"
+              class="participant-image"
+            />
+            <h4>Хуснутдинов Амирхан</h4>
+            <p>участник</p>
+          </div>
+          <div class="participant">
+            <img
+              src="./img/contact-info/Малов.jpeg"
+              alt="Участник 6"
+              class="participant-image"
+            />
+            <h4>Малов Денис</h4>
+            <p>участник</p>
+          </div>
+          <div class="participant">
+            <img
+              src="./img/contact-info/Демус.jpeg"
+              alt="Участник 7"
+              class="participant-image"
+            />
+            <h4>Демус Анастасия</h4>
+            <p>участник</p>
+          </div>
+          <div class="participant">
+            <img
+              src="./img/contact-info/Григорьев.jpeg"
+              alt="Участник 8"
+              class="participant-image"
+            />
+            <h4>Григорьев Антон</h4>
+            <p>участник</p>
+          </div>
+          <div class="participant">
+            <img
+              src="./img/contact-info/Руководитель.jpeg"
+              alt="Руководитель"
+              class="participant-image"
+            />
+            <h4>Нагимова Светлана Владмировна</h4>
+            <p>Руководитель команды</p>
+          </div>
+          <!-- Добавьте оставшихся участников и руководителя аналогично -->
+        </div>
+      </div>
+
+      <!-- Контактные данные организации -->
+      <div class="organization-contact fade-in">
+        <h3>Свяжитесь с нами</h3>
+        <p>Email: Svetlana_872@mail.ru</p>
+        <p>
+          Адрес: Республика Татарстан, Лениногорский район, г. Лениногорск, ул.
+          Морякова, д. 4
+        </p>
+      </div>
+
+      <!-- Блок с логотипом и поддержкой -->
+      <div class="support-info fade-in">
+        <br />
+        <h3>При поддержке</h3>
+        <div class="support-logo">
+          <img
+            src="img/contact-info/i_1.jpg"
+            alt="Логотип компании 1"
+            class="logo-image"
+          />
+          <a
+            href="https://t.me/CodeSquadChanel"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="img/contact-info/55704de12bf1d78e7af5531ac835496a.png"
+              alt="Логотип моей компании"
+              class="logo-image"
+            />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // JavaScript для автоматической смены изображений и точек
+      let currentImageIndex = 0
+      const images = document.querySelectorAll('.collage-image')
+      const dots = document.querySelectorAll('.dot')
+
+      function changePlaceholder() {
+        images[currentImageIndex].classList.remove('active')
+        images[currentImageIndex].classList.add('fade')
+        currentImageIndex = (currentImageIndex + 1) % images.length
+        images[currentImageIndex].classList.remove('fade')
+        images[currentImageIndex].classList.add('active')
+
+        dots.forEach((dot, index) => {
+          dot.classList.remove('active')
+          if (index === currentImageIndex) {
+            dot.classList.add('active')
+          }
+        })
+      }
+
+      setInterval(changePlaceholder, 5000)
+      document.querySelectorAll('.navbar a').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault()
+          const targetId = this.getAttribute('href')
+          const targetElement = document.querySelector(targetId)
+          window.scrollTo({
+            top:
+              targetElement.getBoundingClientRect().top + window.scrollY - 80,
+            behavior: 'smooth',
+          })
+        })
+      })
+      // Плавное появление элементов при прокрутке
+      const fadeElements = document.querySelectorAll('.fade-in')
+
+      function handleScroll() {
+        fadeElements.forEach((el) => {
+          const rect = el.getBoundingClientRect()
+          if (rect.top < window.innerHeight) {
+            el.classList.add('visible')
+          }
+        })
+      }
+
+      window.addEventListener('scroll', handleScroll)
+      document.addEventListener('DOMContentLoaded', handleScroll)
+    </script>
+    <script>
+      window.addEventListener('beforeunload', () => {
+        window.scrollTo(0, 0)
+      })
+    </script>
+    <!-- Подключение библиотеки QR-кодов -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+    <script>
+      async function fetchQuizzes() {
+        const response = await fetch('/api/quizzes')
+        const quizzes = await response.json()
+        const quizList = document.getElementById('quiz-list')
+
+        quizzes.forEach((quiz) => {
+          const li = document.createElement('li')
+          li.textContent = quiz.name
+
+          // Обработчик клика по элементу списка
+          li.onclick = () => {
+            window.location.href = `https://yungelgeo.ru/quiz?id=${quiz.id}`
+          }
+
+          // Кнопка "Поделиться"
+          const shareButton = document.createElement('button')
+          shareButton.textContent = 'Поделиться'
+          shareButton.onclick = (event) => {
+            event.stopPropagation() // Останавливаем распространение события, чтобы не сработал li.onclick
+            openModal(quiz.id)
+          }
+
+          // Кнопка "Перейти к результатам"
+          const resultsButton = document.createElement('button')
+          resultsButton.textContent = 'Перейти к результатам'
+          resultsButton.onclick = (event) => {
+            event.stopPropagation() // Останавливаем распространение события, чтобы не сработал li.onclick
+            window.location.href = `https://yungelgeo.ru/results?id=${quiz.id}`
+          }
+
+          li.appendChild(shareButton)
+          li.appendChild(resultsButton)
+          quizList.appendChild(li)
+        })
+      }
+
+      function openModal(quizId) {
+        // Открыть модальное окно
+        const modal = document.getElementById('shareModal')
+        modal.style.display = 'block'
+
+        // Генерация ссылки на квиз
+        const quizLink = `https://yungelgeo.ru/quiz?id=${quizId}`
+        console.log('quizLink:', quizLink) // Log the generated link
+        console.log('QR код сгенерирован для URL:', quizLink)
+
+        // Получаем сам элемент canvas для QR-кода
+        const qrCodeCanvas = document.getElementById('qr-code')
+        if (!qrCodeCanvas || !(qrCodeCanvas instanceof HTMLCanvasElement)) {
+          console.error('Элемент для QR-кода не является <canvas>.')
+          return
+        }
+
+        // Очистить canvas перед генерацией нового QR-кода
+        const context = qrCodeCanvas.getContext('2d')
+        context.clearRect(0, 0, qrCodeCanvas.width, qrCodeCanvas.height)
+
+        // Генерация QR-кода
+        QRCode.toCanvas(qrCodeCanvas, quizLink, function (error) {
+          if (error) {
+            console.error('Ошибка при генерации QR-кода:', error)
+            alert('Ошибка при генерации QR-кода. Пожалуйста, попробуйте снова.')
+          } else {
+            console.log('QR код успешно сгенерирован!')
+          }
+        })
+
+        // Убедитесь, что ссылка корректная
+        if (!quizLink) {
+          alert('Ошибка: ссылка на квиз не была сгенерирована.')
+          return
+        }
+
+        // Заполнение поля с ссылкой
+        document.getElementById('quizLink').value = quizLink
+      }
+
+      function closeModal() {
+        // Закрыть модальное окно
+        const modal = document.getElementById('shareModal')
+        modal.style.display = 'none'
+      }
+
+      function copyLink() {
+        const linkInput = document.getElementById('quizLink')
+        linkInput.select()
+        linkInput.setSelectionRange(0, 99999) // Для мобильных устройств
+        document.execCommand('copy')
+        alert('Ссылка скопирована!')
+      }
+
+      window.onload = fetchQuizzes
+    </script>
+    <script
+      src="https://api-maps.yandex.ru/2.1/?apikey=acfe7bc2-901c-4b6b-b744-72632398d2a9&lang=ru_RU"
+      type="text/javascript"
+    ></script>
+    <script>
+      ymaps.ready(function () {
+        const map = new ymaps.Map('map', {
+          center: [54.46225889300814, 52.03816868517733], // Центр карты
+          zoom: 13,
+          type: 'yandex#map', // Устанавливаем тип карты по умолчанию
+        })
+
+        // Включаем отображение рельефа местности
+        const layer = map.layers.get(0)
+        if (layer) {
+          layer.options.set('terrain', true)
+        }
+
+        const points = [
+          [54.45916750929458, 52.066446568997755], // Река Шешма
+          [54.45929716364854, 52.06403499613381], // Родник «Макар-Латко»
+          [54.463662973112086, 52.05960609512859], // Церковь Михаила Архангела
+          [54.463752084437985, 52.05280276000758], // Выезд в гору Покш Панда
+          [54.46225889300814, 52.03816868517733], // Перекресток Горы
+          [54.46777646869141, 52.03276053667861], // Вершина Горы
+        ]
+
+        const pointNames = [
+          'Река "Шешма"',
+          'Родник "Макар-Латко"',
+          'Церковь Михаила Архангела',
+          'Выезд в гору Покш Пандо',
+          'Перекресток Горы',
+          'Вершина Горы',
+        ]
+
+        // Добавляем маршрут на карту
+        const route = new ymaps.Polyline(
+          points,
+          {},
+          {
+            strokeColor: '#FF0000', // Цвет линии
+            strokeWidth: 4, // Толщина линии
+            strokeOpacity: 0.8, // Прозрачность линии
+          }
+        )
+
+        map.geoObjects.add(route)
+
+        // Добавляем метки для каждой точки
+        points.forEach((point, index) => {
+          const placemark = new ymaps.Placemark(point, {
+            hintContent: `Точка ${index + 1}`,
+            balloonContent: pointNames[index],
+          })
+          map.geoObjects.add(placemark)
+        })
+
+        // Автоматически подгоняем карту под маршрут
+        map.setBounds(route.geometry.getBounds(), { checkZoomRange: true })
+
+        // Добавляем название маршрута
+        const routeName = new ymaps.GeoObject(
+          {
+            geometry: {
+              type: 'Point',
+              coordinates: [54.463662973112086, 52.05], // Примерная центральная точка маршрута
+            },
+            properties: {
+              iconContent:
+                'Экологическая тропа «Сокровища горы Покш Пандо»',
+            },
+          },
+          {
+            preset: 'islands#blackStretchyIcon',
+          }
+        )
+
+        map.geoObjects.add(routeName)
+      })
+    </script>
+  </body>
+</html>
