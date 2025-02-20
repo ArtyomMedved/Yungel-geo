@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Экотропа Акташский провал</title>
+    <link rel="icon" type="image/x-icon" href="./img/ungeo-64x64-cf2.png" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      #photo {
+        width: 500px; 
+        height: 400px;
+        object-fit: cover;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .hidden {
+        display: none;
+      }
+      .active {
+        background-color: #f28c28;
+        color: white;
+      }
+      .text-section {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+      h2,
+      h3 {
+        color: #f28c28;
+      }
+      p {
+        line-height: 1.6;
+      }
+    </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const images = [
+        './img/Экотропа фотки/photo_2025-02-20_09-29-30.jpg',
+        './img/Экотропа фотки/photo_2025-02-20_09-26-26.jpg',
+        './img/Экотропа фотки/photo_2025-02-20_09-26-26 (2).jpg',
+        './img/Экотропа фотки/IMG_20240913_151826.jpg',
+        './img/Экотропа фотки/IMG_20240913_143744.jpg',
+      ];
+      let currentIndex = 0;
+      let intervalId;
+      
+      function showImage(index) {
+        const imgElement = document.getElementById('photo');
+        imgElement.style.opacity = 0;
+        setTimeout(() => {
+          imgElement.src = images[index];
+          imgElement.style.opacity = 1;
+        }, 500);
+        updateButtons(index);
+      }
+      
+      function updateButtons(index) {
+        document.querySelectorAll('.image-btn').forEach((button, i) => {
+          button.classList.toggle('active', i === index);
+        });
+      }
+      
+      function startSlideshow() {
+        intervalId = setInterval(() => {
+          currentIndex = (currentIndex + 1) % images.length;
+          showImage(currentIndex);
+        }, 9000);
+      }
+      
+      function stopSlideshow() {
+        clearInterval(intervalId);
+      }
+      
+      document.querySelectorAll('.image-btn').forEach((button, index) => {
+        button.addEventListener('click', function () {
+          stopSlideshow();
+          currentIndex = index;
+          showImage(index);
+          startSlideshow();
+        });
+      });
+      
+      document.getElementById('mapToggle').addEventListener('click', function () {
+        document.getElementById('imgContainer').classList.add('hidden');
+        document.getElementById('mapContainer').classList.remove('hidden');
+        document.getElementById('imageButtons').classList.add('hidden');
+        stopSlideshow();
+      });
+      
+      document.getElementById('photoToggle').addEventListener('click', function () {
+        document.getElementById('imgContainer').classList.remove('hidden');
+        document.getElementById('mapContainer').classList.add('hidden');
+        document.getElementById('imageButtons').classList.remove('hidden');
+        startSlideshow();
+      });
+      
+      showImage(currentIndex);
+      startSlideshow();
+    });
+  </script>  
+  </head>
+  <body class="bg-white text-[#333333] font-sans">
+    <div class="container mx-auto p-4 max-w-screen-lg">
+      <!-- Header Section -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <!-- Логотип компании -->
+          <a href="https://yungelgeo.ru/" class="text-xl font-bold">
+            <img
+              src="https://yungelgeo.ru/img/ungeo-64x64-cf2.png"
+              alt="Yungel Geo Logo"
+              class="h-10"
+            />
+          </a>
+          <a href="https://yungelgeo.ru" class="text-xl font-bold ml-2"
+            >Yungel Geo</a
+          >
+        </div>
+      </div>
+
+      <!-- Title Section -->
+      <div class="text-center mt-8">
+        <h1 class="text-2xl font-bold">Экотропа Акташский провал</h1>
+        <div class="flex justify-center items-center mt-2">
+          <span class="mx-2">◆</span>
+        </div>
+        <div
+          class="flex flex-wrap justify-center items-center mt-4 gap-4 text-[#333333]"
+        >
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-ruler-combined"></i>
+            <span>Протяженность: 5 км</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-mountain"></i>
+            <span>Трудность маршрута: Средняя</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-clock"></i>
+            <span>Длительность: 1.5 - 2 часа</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Тип маршрута: Пешеходный и велосипедный</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo and Navigation Section -->
+      <div class="flex justify-center mt-8">
+        <div class="flex space-x-8 text-lg">
+          <span id="photoToggle" class="cursor-pointer">Фото</span>
+          <span id="mapToggle" class="cursor-pointer">Карта</span>
+        </div>
+      </div>
+
+      <!-- Image Display -->
+      <div class="mt-8 flex justify-center" id="imgContainer">
+        <img
+          id="photo"
+          class="w-full max-w-lg"
+        />
+      </div>
+
+      <!-- Map Display -->
+      <div class="mt-8 flex justify-center hidden" id="mapContainer">
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A63dec8f700d17f1fb017d0ddb512bc97164f20a7f6abcd2b1f402b9253d364d7&amp;source=constructor" width="818" height="493" frameborder="0"></iframe>
+      </div>
+
+      <!-- Image Navigation Buttons -->
+      <div class="flex justify-center mt-4 space-x-2" id="imageButtons">
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+      </div>
+
+      <!-- Text Section -->
+      <div class="text-section">
+        <h2 class="text-xl font-bold text-center">Дата: 2024-2025</h2>
+        <h2 class="text-xl font-bold text-center mt-4">
+          Рекомендованный сезон: Весна, лето, осень
+        </h2>
+        <h2 class="text-xl font-bold text-center mt-4">Описание маршрута:</h2>
+        <p class="mt-2 leading-relaxed">
+          Акташский провал — это не только одно из самых захватывающих
+          геологических образований Татарстана, но и природная
+          достопримечательность, которая скрывает множество тайн и историй.
+          Маршрут проходит через густые леса, освещенные солнечными лучами
+          поляны, а также по каменистым участкам, близким к провалу. Это место
+          идеально подойдет для любителей экотуризма, фотографов и просто
+          ценителей нетронутой природы.
+        </p>
+        <p class="mt-2 leading-relaxed">
+          Акташский провал представляет собой глубокую карстовую воронку,
+          которая возникла в результате сложных геологических процессов,
+          произошедших в этом регионе тысячелетия назад. На протяжении всего
+          маршрута участники смогут наблюдать разнообразие флоры и фауны
+          региона, включая редкие растения и животные виды.
+        </p>
+
+        <!-- Route Details -->
+        <h2 class="text-xl font-bold text-center mt-4">Маршрут:</h2>
+        <h3 class="text-lg font-bold text-center mt-2">
+          Точка старта: Железнодорожная станция Альметьевская (Калейкино).
+        </h3>
+        <div class="mt-8 flex justify-center" id="imgContainer">
+            <img
+              id="photo"
+              class="w-full max-w-lg"
+              src="https://avatars.mds.yandex.net/i?id=db11a0e329847f23d513b4c22b228309_l-4522636-images-thumbs&n=13"
+            />
+        </div>
+        <p class="mt-2 leading-relaxed text-center">
+          Координаты старта: 54.919396, 52.138728
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Тип объекта: Железнодорожная станция
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Официальное название: Альметьевская
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Год основания: 1960 год
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Адрес: Республика Татарстан, Альметьевский район, посёлок железнодорожной станции Калейкино
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Контактный телефон: 8 (8553) 34-17-51
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            История и описание
+            Железнодорожная станция Калейкино, официально именуемая Альметьевская, была введена в эксплуатацию в 1960 году. Она расположена на линии Агрыз–Акбаш и находится в 13 км к западу от города Альметьевск. Станция была построена для обеспечения транспортных потребностей, связанных с развитием нефтяной промышленности и строительных проектов в регионе. В 1989 году станция получила официальное название "Альметьевская", однако в обиходе продолжает использоваться прежнее название "Калейкино".
+            В первые десятилетия своего существования станция играла ключевую роль в перевозке материалов и оборудования для нефтяных и строительных предприятий. В 1970-х годах, с развитием крупных промышленных проектов в Набережных Челнах и Нижнекамске, значение станции возросло, и она была отнесена ко II классу как участковая станция. Однако к началу 2000-х годов её статус был понижен до IV класса, и она стала промежуточной станцией. В настоящее время станция оживляется в периоды посевных кампаний и при доставке удобрений сельскохозяйственным предприятиям.
+            Станция Альметьевская обслуживает как грузовые, так и пассажирские перевозки. Она предоставляет услуги по приёму и выдаче повагонных отправок грузов, допускаемых к хранению на открытых площадках, а также продажу билетов на все пассажирские поезда.
+            Железнодорожная станция Альметьевская является важным транспортным узлом, способствующим развитию экономики и обеспечению транспортной доступности Альметьевского района и прилегающих территорий.
+        </p>
+
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Обелиск Славы:
+        </h3>
+        <div class="mt-8 flex justify-center" id="imgContainer">
+            <img
+              id="photo"
+              class="w-full max-w-lg"
+              src="https://avatars.mds.yandex.net/get-altay/5106183/2a0000017c57e2bc952f5fa0ae95a01b2554/XXXL"
+            />
+        </div>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.918259, 52.139726
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            История и описание
+            Обелиск Славы в селе Калейкино был установлен в память о героях Великой Отечественной войны, а также о тех, кто внес свой вклад в победу, работая в тылу. Мемориал представляет собой монументальную конструкцию с мемориальными досками, на которых увековечены имена погибших солдат.
+            Этот памятник служит символом благодарности и уважения к подвигу советских граждан и является местом для проведения памятных мероприятий, посвящённых Дню Победы и другим важным датам.
+        </p>
+
+
+        <h3 class="text-lg font-bold text-center mt-2">Молитвенный дом Матроны Московской:</h3>
+        <div class="mt-8 flex justify-center" id="imgContainer">
+            <img
+              id="photo"
+              class="w-full max-w-lg"
+              src="https://sobory.ru/pic/46750/46771_20180831_141840.jpg"
+            />
+        </div>
+        <p class="mt-2 leading-relaxed text-center">
+            Тип объекта: Молитвенный дом
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Посвящён: Преподобной Матроне Московской
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Год постройки: Между 2012 и 2015.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.917676, 52.139829
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            История и описание
+            Молитвенный дом Матроны Московской в посёлке станции Калейкино является важным религиозным объектом для местной православной общины. Этот молитвенный дом был основан с целью укрепления духовной жизни и поддержки верующих в небольшом посёлке.
+            Молитвенный дом посвящён преподобной Матроне Московской — святой, почитаемой за её благочестивую жизнь и за исцеление людей от различных болезней. Молитвенный дом служит местом для проведения богослужений, молитв и встреч верующих, а также для духовных бесед и катехизации.
+            Это место привлекает верующих, желающих молиться и искать утешение, и играет важную роль в жизни местной православной общины, укрепляя её духовные основы.
+        </p>
+
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Озеро "Акташский провал"
+        </h3>
+        <div class="mt-8 flex justify-center" id="imgContainer">
+            <img
+              id="photo"
+              class="w-full max-w-lg"
+              src="./img/Экотропа фотки/photo_2025-02-20_09-29-30.jpg"
+            />
+        </div>
+        <p class="mt-2 leading-relaxed text-center">
+            Тип объекта: Озеро карстового происхождения, памятник природы       
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.915167, 52.147839       
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Год образования: 1939 год       
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Акташский провал — уникальный водоём карстового происхождения, который является самым глубоким озером Республики Татарстан. Провал образовался 7 августа 1939 года, когда на колхозном поле внезапно обрушилась земля под трактором, образовав воронку.
+            Озеро признано памятником природы регионального значения.
+            Озеро имеет округлую форму, его длина и ширина составляют 28 м, площадь зеркала — 0,03 га. Средняя глубина достигает 11 м, максимальная — 28 м. Водоём питается подземными водами, которые обеспечивают его чистоту и прозрачность. Вода минерализована, гидрокарбонатно-кальциевого состава.
+        </p>
+
+
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Точка перевала
+        </h3>
+        <div class="mt-8 flex justify-center" id="imgContainer">
+            <img
+              id="photo"
+              class="w-full max-w-lg"
+              src="./img/Экотропа фотки/photo_2025-02-20_09-26-26 (5).jpg"
+            />
+        </div>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.914232, 52.150012  
+        </p>
+
+
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Заброшенный карьер
+        </h3>
+        <div class="mt-8 flex justify-center" id="imgContainer">
+            <img
+              id="photo"
+              class="w-full max-w-lg"
+              src="./img/Экотропа фотки/Снимок экрана 2025-02-20 в 22.01.11.png"
+            />
+        </div>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.913778, 52.151014
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Описание:
+            Вблизи провала находится заброшенный карьер по добыче
+            строительного песка
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Слой 1. Переслаивание микроплитчатых мергелей и глин
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Слой 2. Песчаники
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Слой 3. Постепенный переход супесей в суглинки и в почву
+        </p>
+
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Освященный родник «Изге Салкын чишмэ» (Апаковский)
+        </h3>
+        <div class="mt-8 flex justify-center" id="imgContainer">
+            <img
+              id="photo"
+              class="w-full max-w-lg"
+              src="./img/Экотропа фотки/photo_2025-02-20_09-26-26 (7).jpg"
+            />
+        </div>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.913062, 52.168973
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Тип объекта: Родник с купелью
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Год обустройства: неизвестен
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Контактная информация: отсутствует
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            История и описание:
+            Освященный родник «Изге Салкын чишмэ» (Апаковский) — благоустроенный источник, расположенный неподалёку от села Калейкино. Родник оборудован открытой купелью, предназначенной для погружения в чистые и прохладные воды. Вода в источнике прозрачная, средней силы дебета.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Над родником установлен открытый павильон, дорожки замощены, обеспечены хорошие подъездные пути. Вдоль автодороги, ведущей к селу Кульшарипово, установлен аншлаг с указанием местоположения источника. Территория вокруг родника ухожена, имеется щебёночная площадка и парковка для автомобилей.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Считается, что родник назван в честь Михаила Николаевича Апакова — мастера на все руки, проживавшего в Калейкино. В праздник Крещения здесь традиционно разжигают костры, окунаются в купель и согреваются у огня, продолжая народные традиции.
+        </p>
+        
+
+        <!-- Additional Recommendations -->
+        <h2 class="text-xl font-bold text-center mt-4">
+          Особенности и дополнительные рекомендации:
+        </h2>
+        <p class="mt-2 leading-relaxed text-center">
+          Одежда и обувь: Подготовьтесь к изменению погодных условий.
+          Рекомендуется носить удобную обувь для походов по лесу (не скользкую и
+          водонепроницаемую) и одежду по погоде. В зимний период возьмите с
+          собой термобелье и теплую куртку.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Питание: Принесите с собой воду и легкие перекусы. Важно поддерживать
+          уровень гидратации, особенно на дальних участках маршрута.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Безопасность: Внимательно следите за своим здоровьем. Если у вас есть
+          заболевания, связанные с физическими нагрузками, сообщите об этом
+          перед походом. На маршруте есть участки с крутыми спусками, поэтому
+          следует быть осторожным. Рекомендуется взять с собой аптечку первой
+          помощи.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Мобильная связь: На некоторых участках маршрута сигнал может быть
+          слабым или отсутствовать. Не забудьте заранее сообщить близким о вашем
+          маршруте.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Лучшее время для посещения: Весна и осень — идеальное время для похода
+          по этому маршруту. Зимой путь может быть сложным из-за снега и льда.
+        </p>
+
+        <!-- Photography Tips -->
+        <h2 class="text-xl font-bold text-center mt-4">
+          Советы для фотографов:
+        </h2>
+        <p class="mt-2 leading-relaxed text-center">
+          Лучшие ракурсы: Рекомендуем сфотографировать Акташский провал с разных
+          углов: с высоты, со стороны, где виден обрыв, и с позиции, где растут
+          редкие растения.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Время съемки: Раннее утро или поздний вечер — лучшее время для
+          фотографии, когда солнечный свет делает природу особенно живописной.
+        </p>
+
+        <!-- Conclusion -->
+        <h2 class="text-xl font-bold text-center mt-4">Заключение:</h2>
+        <p class="mt-2 leading-relaxed text-center">
+          Этот маршрут — уникальная возможность насладиться красотой природы
+          Татарстана, узнать об особенностях геологических процессов региона и
+          просто провести время на свежем воздухе. Акташский провал — это не
+          только природная достопримечательность, но и место для личных
+          открытий, фотосессий и отдыха от городской суеты. Мы надеемся, что
+          этот маршрут принесет вам массу положительных впечатлений и
+          незабываемых эмоций!
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

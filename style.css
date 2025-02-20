@@ -177,6 +177,24 @@ body {
     text-align: center;
 }
 
+.eco-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.eco-button:hover {
+    background: #388E3C;
+}
+
 /* Стили для секции видеоматериалов */
 .videos {
     margin: 50px auto;
