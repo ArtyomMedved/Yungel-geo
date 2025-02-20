@@ -52,9 +52,14 @@ app.get('/admin-quiz', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin-quiz.html'));
 });
 
-// Страница админа квизов
+// Страница результатов квизов
 app.get('/results', (req, res) => {
     res.sendFile(path.join(__dirname, 'rezults-quiz.html'));
+});
+
+// Страница экотропы акташский провал квизов
+app.get('/actashski-proval', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Actshski-proval.html'));
 });
 
 // Эндпоинт для проверки пользователя
