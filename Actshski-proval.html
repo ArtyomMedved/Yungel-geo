@@ -14,6 +14,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
 
     <style>
       html, body {
@@ -29,7 +32,7 @@
           padding: 0 15px; /* Добавляем небольшие отступы по бокам */
       }
       #photo {
-        width: 400px; 
+        width: 1000px; 
         height: 400px;
         object-fit: cover;
         transition: opacity 0.5s ease-in-out;
@@ -55,6 +58,35 @@
       p {
         line-height: 1.6;
       }
+      .swiper {
+        width: 100%;
+        max-width: 700px; /* Ограничение по ширине */
+        height: 500px; /* Фиксированная высота */
+      }
+
+      .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }    
+      .swiper-slide img {    
+        width: 100%;  /* Подгоняем по ширине */
+        height: 100%; /* Подгоняем по высоте */
+        object-fit: cover; /* Обрезка фото по контейнеру */
+        border-radius: 10px; /* Скругленные углы (по желанию) */
+      }
+      .swiper-slide video {
+        width: 100%;
+        height: 100%; /* Или установи фиксированную высоту, если необходимо */
+        object-fit: cover; /* Обеспечит корректное обрезание, если это нужно */
+      }
+      .swiper-button-next {
+        color: #f28c28;
+      }
+      .swiper-button-prev {
+        color: #f28c28;
+      }
       /* Адаптация для мобильных устройств */
       @media (max-width: 768px) {
       body {
@@ -75,8 +107,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
       const images = [
-        './img/Экотропа фотки/1.jpg',
-        './img/Экотропа фотки/2.jpg',
+        './img/Экотропа фотки/7.jpg',
+        'img/Экотропа фотки/brfvghr3bhceqrhbcqhbqc.jpg',
+        './img/Экотропа фотки/6.jpg',
         './img/Экотропа фотки/3.jpg',
         './img/Экотропа фотки/4.jpg',
         './img/Экотропа фотки/5.jpg',
@@ -160,7 +193,8 @@
 
       <!-- Title Section -->
       <div class="text-center mt-8">
-        <h1 class="text-2xl font-bold">Предлагаемая познавательно-прогулочная экологическая тропа «Озеро Акташский провал, Республика Татарстан».</h1>
+        <h1 class="text-2xl font-bold">Предлагаемая познавательно-прогулочная экологическая тропа</h1>
+        <h1 class="text-2xl font-bold">«Озеро Акташский провал, Республика Татарстан».</h1>
         <div class="flex justify-center items-center mt-2">
           <span class="mx-2">◆</span>
         </div>
@@ -224,6 +258,9 @@
         <button
           class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
         ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
       </div>
 
       <!-- Text Section -->
@@ -255,13 +292,29 @@
         <h3 class="text-lg font-bold text-center mt-2">
           Точка старта: Железнодорожная станция Альметьевская (Калейкино).
         </h3>
-        <div class="mt-8 flex justify-center" id="imgContainer">
-            <img
-              id="photo"
-              class="w-full max-w-lg"
-              src="https://avatars.mds.yandex.net/i?id=db11a0e329847f23d513b4c22b228309_l-4522636-images-thumbs&n=13"
-            />
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/XXL_height.webp" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/fhrwhwehwehw.webp" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/wfewewwecwwc.webp" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
+        
+        <script>
+          const swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
+        
         <p class="mt-2 leading-relaxed text-center">
           Координаты старта: 54.919396, 52.138728
         </p>
@@ -293,13 +346,26 @@
         <h3 class="text-lg font-bold text-center mt-2">
             Обелиск Славы:
         </h3>
-        <div class="mt-8 flex justify-center" id="imgContainer">
-            <img
-              id="photo"
-              class="w-full max-w-lg"
-              src="https://avatars.mds.yandex.net/get-altay/5106183/2a0000017c57e2bc952f5fa0ae95a01b2554/XXXL"
-            />
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/jervbh3vbwhrvewbhr.webp" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
+        
+        <script>
+          const swiper1 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
         <p class="mt-2 leading-relaxed text-center">
             Координаты: 54.918259, 52.139726
         </p>
@@ -312,13 +378,27 @@
         <br>
 
         <h3 class="text-lg font-bold text-center mt-2">Молитвенный дом Матроны Московской:</h3>
-        <div class="mt-8 flex justify-center" id="imgContainer">
-            <img
-              id="photo"
-              class="w-full max-w-lg"
-              src="https://sobory.ru/pic/46750/46771_20180831_141840.jpg"
-            />
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/jerjbhveghbvehrbvhbjerv.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/vhebhjevebhvebhvhbjvejbhv.webp" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
+        
+        <script>
+          const swiper2 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
         <p class="mt-2 leading-relaxed text-center">
             Тип объекта: Молитвенный дом
         </p>
@@ -343,13 +423,34 @@
         <h3 class="text-lg font-bold text-center mt-2">
             Озеро "Акташский провал"
         </h3>
-        <div class="mt-8 flex justify-center" id="imgContainer">
-            <img
-              id="photo"
-              class="w-full max-w-lg"
-              src="./img/Экотропа фотки/1.jpg"
-            />
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <video controls>
+                <source src="img/Экотропа фотки/IMG_0371.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/brfvghr3bhceqrhbcqhbqc.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/hherehvhvhevwhwhvwhwvvhw.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/gebhwvhevbjhwvwbhjvwb.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/hervhewhwehwehhwhve.jpg" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
+        
+        <script>
+          const swiper3 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
         <p class="mt-2 leading-relaxed text-center">
             Тип объекта: Озеро карстового происхождения, памятник природы       
         </p>
@@ -370,13 +471,27 @@
         <h3 class="text-lg font-bold text-center mt-2">
             Точка перевала
         </h3>
-        <div class="mt-8 flex justify-center" id="imgContainer">
-            <img
-              id="photo"
-              class="w-full max-w-lg"
-              src="./img/Экотропа фотки/photo_2025-02-20_09-26-26 (5).jpg"
-            />
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/Экотропа фотки/bhbhervbhjevbhjeebhj.png" /></div>
+            <div class="swiper-slide"><img src="img/Экотропа фотки/rfbhjebhjvebhwhbevbjheve.jpg" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
+        
+        <script>
+          const swiper4 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
         <p class="mt-2 leading-relaxed text-center">
             Координаты: 54.914232, 52.150012  
         </p>
@@ -386,13 +501,28 @@
         <h3 class="text-lg font-bold text-center mt-2">
             Заброшенный карьер
         </h3>
-        <div class="mt-8 flex justify-center" id="imgContainer">
-            <img
-              id="photo"
-              class="w-full max-w-lg"
-              src="./img/Экотропа фотки/Снимок экрана 2025-02-20 в 22.01.11.png"
-            />
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/ibfebeuhgfwrughfwerguwerg.png" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/1erhrehvgheuegver.png" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/2ierbvhbervbhevhieb.png" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
+        
+        <script>
+          const swiper5 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
         <p class="mt-2 leading-relaxed text-center">
             Координаты: 54.913778, 52.151014
         </p>
@@ -416,13 +546,27 @@
         <h3 class="text-lg font-bold text-center mt-2">
             Освященный родник «Изге Салкын чишмэ» (Апаковский)
         </h3>
-        <div class="mt-8 flex justify-center" id="imgContainer">
-            <img
-              id="photo"
-              class="w-full max-w-lg"
-              src="./img/Экотропа фотки/photo_2025-02-20_09-26-26 (7).jpg"
-            />
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/9.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/fgfhhffghgjvvgjhcfchfcfh.jpg" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
+        
+        <script>
+          const swiper6 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
         <p class="mt-2 leading-relaxed text-center">
             Координаты: 54.913062, 52.168973
         </p>
