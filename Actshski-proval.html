@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Экотропа Акташский провал</title>
+    <link rel="icon" type="image/x-icon" href="./img/ungeo-64x64-cf2.png" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+
+    <style>
+      html, body {
+       overflow-x: hidden;
+       margin: 0;
+       padding: 0;
+       width: 100%;
+      }
+      /* Контейнер для центрирования контента */
+      .container {
+          max-width: 1000px;
+          margin: 0 auto;
+          padding: 0 15px; /* Добавляем небольшие отступы по бокам */
+      }
+      #photo {
+        width: 1000px; 
+        height: 400px;
+        object-fit: cover;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .hidden {
+        display: none;
+      }
+      .active {
+        background-color: #f28c28;
+        color: white;
+      }
+      .text-section {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+      h2,
+      h3 {
+        color: #f28c28;
+      }
+      p {
+        line-height: 1.6;
+      }
+      .swiper {
+        width: 100%;
+        max-width: 700px; /* Ограничение по ширине */
+        height: 500px; /* Фиксированная высота */
+      }
+
+      .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }    
+      .swiper-slide img {    
+        width: 100%;  /* Подгоняем по ширине */
+        height: 100%; /* Подгоняем по высоте */
+        object-fit: cover; /* Обрезка фото по контейнеру */
+        border-radius: 10px; /* Скругленные углы (по желанию) */
+      }
+      .swiper-slide video {
+        width: 100%;
+        height: 100%; /* Или установи фиксированную высоту, если необходимо */
+        object-fit: cover; /* Обеспечит корректное обрезание, если это нужно */
+      }
+      .swiper-button-next {
+        color: #f28c28;
+      }
+      .swiper-button-prev {
+        color: #f28c28;
+      }
+      /* Адаптация для мобильных устройств */
+      @media (max-width: 768px) {
+      body {
+        text-align: center; /* Выравниваем контент */
+      }
+
+      #photo {
+        max-width: 100%; /* Делаем изображение адаптивным */
+        height: auto;
+      }
+
+      .text-section {
+        margin: 10px; /* Уменьшаем отступы */
+      }
+    }
+    </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const images = [
+        './img/Экотропа фотки/7.jpg',
+        'img/Экотропа фотки/brfvghr3bhceqrhbcqhbqc.jpg',
+        './img/Экотропа фотки/6.jpg',
+        './img/Экотропа фотки/3.jpg',
+        './img/Экотропа фотки/4.jpg',
+        './img/Экотропа фотки/5.jpg',
+      ];
+      let currentIndex = 0;
+      let intervalId;
+      
+      function showImage(index) {
+        const imgElement = document.getElementById('photo');
+        imgElement.style.opacity = 0;
+        setTimeout(() => {
+          imgElement.src = images[index];
+          imgElement.style.opacity = 1;
+        }, 500);
+        updateButtons(index);
+      }
+      
+      function updateButtons(index) {
+        document.querySelectorAll('.image-btn').forEach((button, i) => {
+          button.classList.toggle('active', i === index);
+        });
+      }
+      
+      function startSlideshow() {
+        intervalId = setInterval(() => {
+          currentIndex = (currentIndex + 1) % images.length;
+          showImage(currentIndex);
+        }, 9000);
+      }
+      
+      function stopSlideshow() {
+        clearInterval(intervalId);
+      }
+      
+      document.querySelectorAll('.image-btn').forEach((button, index) => {
+        button.addEventListener('click', function () {
+          stopSlideshow();
+          currentIndex = index;
+          showImage(index);
+          startSlideshow();
+        });
+      });
+      
+      document.getElementById('mapToggle').addEventListener('click', function () {
+        document.getElementById('imgContainer').classList.add('hidden');
+        document.getElementById('mapContainer').classList.remove('hidden');
+        document.getElementById('imageButtons').classList.add('hidden');
+        stopSlideshow();
+      });
+      
+      document.getElementById('photoToggle').addEventListener('click', function () {
+        document.getElementById('imgContainer').classList.remove('hidden');
+        document.getElementById('mapContainer').classList.add('hidden');
+        document.getElementById('imageButtons').classList.remove('hidden');
+        startSlideshow();
+      });
+      
+      showImage(currentIndex);
+      startSlideshow();
+    });
+  </script>  
+  </head>
+  <body class="bg-white text-[#333333] font-sans">
+    <div class="container mx-auto p-4 max-w-screen-lg">
+      <!-- Header Section -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <!-- Логотип компании -->
+          <a href="https://yungelgeo.ru/" class="text-xl font-bold">
+            <img
+              src="https://yungelgeo.ru/img/ungeo-64x64-cf2.png"
+              alt="Yungel Geo Logo"
+              class="h-10"
+            />
+          </a>
+          <a href="https://yungelgeo.ru" class="text-xl font-bold ml-2"
+            >Yungel Geo</a
+          >
+        </div>
+      </div>
+
+      <!-- Title Section -->
+      <div class="text-center mt-8">
+        <h1 class="text-2xl font-bold">Предлагаемая познавательно-прогулочная экологическая тропа</h1>
+        <h1 class="text-2xl font-bold">«Озеро Акташский провал, Республика Татарстан».</h1>
+        <div class="flex justify-center items-center mt-2">
+          <span class="mx-2">◆</span>
+        </div>
+        <div
+          class="flex flex-wrap justify-center items-center mt-4 gap-4 text-[#333333]"
+        >
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-ruler-combined"></i>
+            <span>Протяженность: 5 км</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-mountain"></i>
+            <span>Трудность маршрута: Средняя</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-clock"></i>
+            <span>Длительность: 1.5 - 2 часа</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Тип маршрута: Пешеходный и велосипедный</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo and Navigation Section -->
+      <div class="flex justify-center mt-8">
+        <div class="flex space-x-8 text-lg">
+          <span id="photoToggle" class="cursor-pointer">Фото</span>
+          <span id="mapToggle" class="cursor-pointer">Карта</span>
+        </div>
+      </div>
+
+      <!-- Image Display -->
+      <div class="mt-8 flex justify-center" id="imgContainer">
+        <img
+          id="photo"
+          class="w-full max-w-lg"
+        />
+      </div>
+
+      <!-- Map Display -->
+      <div class="mt-8 flex justify-center hidden" id="mapContainer">
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A63dec8f700d17f1fb017d0ddb512bc97164f20a7f6abcd2b1f402b9253d364d7&amp;source=constructor" width="818" height="493" frameborder="0"></iframe>
+      </div>
+
+      <!-- Image Navigation Buttons -->
+      <div class="flex justify-center mt-4 space-x-2" id="imageButtons">
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+        <button
+          class="w-4 h-4 rounded-full border-2 border-[#f28c28] image-btn"
+        ></button>
+      </div>
+
+      <!-- Text Section -->
+      <div class="text-section">
+        <h2 class="text-xl font-bold text-center">Дата: 2024-2025</h2>
+        <h2 class="text-xl font-bold text-center mt-4">
+          Рекомендованный сезон: Весна, лето, осень
+        </h2>
+        <h2 class="text-xl font-bold text-center mt-4">Описание маршрута:</h2>
+        <p class="mt-2 leading-relaxed">
+          Акташский провал — это не только одно из самых захватывающих
+          геологических образований Татарстана, но и природная
+          достопримечательность, которая скрывает множество тайн и историй.
+          Маршрут проходит через густые леса, освещенные солнечными лучами
+          поляны, а также по каменистым участкам, близким к провалу. Это место
+          идеально подойдет для любителей экотуризма, фотографов и просто
+          ценителей нетронутой природы.
+        </p>
+        <p class="mt-2 leading-relaxed">
+          Акташский провал представляет собой глубокую карстовую воронку,
+          которая возникла в результате сложных геологических процессов,
+          произошедших в этом регионе тысячелетия назад. На протяжении всего
+          маршрута участники смогут наблюдать разнообразие флоры и фауны
+          региона, включая редкие растения и животные виды.
+        </p>
+
+        <!-- Route Details -->
+        <h2 class="text-xl font-bold text-center mt-4">Маршрут:</h2>
+        <h3 class="text-lg font-bold text-center mt-2">
+          Точка старта: Железнодорожная станция Альметьевская (Калейкино).
+        </h3>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/XXL_height.webp" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/fhrwhwehwehw.webp" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/wfewewwecwwc.webp" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        
+        <script>
+          const swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
+        
+        <p class="mt-2 leading-relaxed text-center">
+          Координаты старта: 54.919396, 52.138728
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Тип объекта: Железнодорожная станция
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Официальное название: Альметьевская
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Год основания: 1960 год
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Адрес: Республика Татарстан, Альметьевский район, посёлок железнодорожной станции Калейкино
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Контактный телефон: 8 (8553) 34-17-51
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          <p class="mt-2 leading-relaxed text-center">
+            Железнодорожная станция Калейкино (Альметьевская) была открыта в 1960 году на линии Агрыз–Акбаш, в 13 км от Альметьевска. Её строительство связано с развитием нефтяной промышленности. В 1989 году станция получила название "Альметьевская", но в обиходе сохраняется старое название.
+            В первые десятилетия станция играла ключевую роль в перевозке грузов для нефтяных и строительных предприятий. В 1970-х, с ростом промышленных проектов, её статус повысили до II класса, но к 2000-м она стала промежуточной IV класса. Сейчас станция оживляется в сезоны посевных работ и доставки удобрений.
+            Станция обслуживает грузовые и пассажирские перевозки, принимает повагонные отправки и продаёт билеты на поезда. Она остаётся важным транспортным узлом, обеспечивающим экономическое развитие региона.
+          </p>
+        </p>
+
+        <br>
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Обелиск Славы:
+        </h3>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/jervbh3vbwhrvewbhr.webp" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        
+        <script>
+          const swiper1 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.918259, 52.139726
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            История и описание
+            Обелиск Славы в селе Калейкино был установлен в память о героях Великой Отечественной войны, а также о тех, кто внес свой вклад в победу, работая в тылу. Мемориал представляет собой монументальную конструкцию с мемориальными досками, на которых увековечены имена погибших солдат.
+            Этот памятник служит символом благодарности и уважения к подвигу советских граждан и является местом для проведения памятных мероприятий, посвящённых Дню Победы и другим важным датам.
+        </p>
+
+        <br>
+
+        <h3 class="text-lg font-bold text-center mt-2">Молитвенный дом Матроны Московской:</h3>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/jerjbhveghbvehrbvhbjerv.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/vhebhjevebhvebhvhbjvejbhv.webp" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        
+        <script>
+          const swiper2 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
+        <p class="mt-2 leading-relaxed text-center">
+            Тип объекта: Молитвенный дом
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Посвящён: Преподобной Матроне Московской
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Год постройки: Между 2012 и 2015.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.917676, 52.139829
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            История и описание
+            Молитвенный дом Матроны Московской в посёлке станции Калейкино является важным религиозным объектом для местной православной общины. Этот молитвенный дом был основан с целью укрепления духовной жизни и поддержки верующих в небольшом посёлке.
+            Молитвенный дом посвящён преподобной Матроне Московской — святой, почитаемой за её благочестивую жизнь и за исцеление людей от различных болезней. Молитвенный дом служит местом для проведения богослужений, молитв и встреч верующих, а также для духовных бесед и катехизации.
+            Это место привлекает верующих, желающих молиться и искать утешение, и играет важную роль в жизни местной православной общины, укрепляя её духовные основы.
+        </p>
+
+        <br>
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Озеро "Акташский провал"
+        </h3>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <video controls>
+                <source src="img/Экотропа фотки/IMG_0371.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/brfvghr3bhceqrhbcqhbqc.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/hherehvhvhevwhwhvwhwvvhw.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/gebhwvhevbjhwvwbhjvwb.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/hervhewhwehwehhwhve.jpg" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        
+        <script>
+          const swiper3 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
+        <h3 class="text-lg font-bold text-center mt-4">Общая информация</h3>
+        <p class="text-center">- Акташский провал – уникальный природный объект в Альметьевском районе Татарстана. Он представляет собой глубокое карстовое озеро, образовавшееся в результате провала грунта.</p>
+        <p class="text-center">- Озеро является памятником природы регионального значения с 1978 года, что подтверждает его природную и научную ценность.</p>
+        <p class="text-center">- Его сравнивают с озером Морской глаз в Марий Эл из-за схожего цвета воды, обусловленного высоким содержанием минералов.</p>
+        <p class="text-center">- Координаты: 54°55′18.11″ с. ш. 52°11′14.78″ в. д.</p>
+        <p class="text-center">- Образовался в результате карстового провала, вызванного вымыванием подземными водами известняковых пород.</p>
+        <p class="text-center">- Провал постепенно расширялся, принимая современный вид.</p>
+        
+        <h3 class="text-lg font-bold text-center mt-4">География и параметры</h3>
+        <p class="text-center">- Происхождение: карстовое, бессточное.</p>
+        <p class="text-center">- Расположение: возле села Калейкино.</p>
+        <p class="text-center">- Форма: круглая.</p>
+        <p class="text-center">- Размеры: 28 м × 28 м, площадь зеркала воды – 0,03 га.</p>
+        <p class="text-center">- Глубина: средняя – 11 м, максимальная – 28 м.</p>
+        <p class="text-center">- Провал находится на возвышенности, а уровень воды в озере на 10-12 метров ниже уровня земли.</p>
+        <p class="text-center">- Стены провала крутые, спуск без специального снаряжения затруднён.</p>
+        
+        <h3 class="text-lg font-bold text-center mt-4">История образования</h3>
+        <p class="text-center">- 7 августа 1939 года во время сельскохозяйственных работ внезапно провалилась земля под трактором.</p>
+        <p class="text-center">- По легенде, тракторист спасся, но трактор исчез в глубинах провала и не был найден.</p>
+        <p class="text-center">- Первоначальные размеры провала – 3×2 м, глубина – 50-80 м.</p>
+        <p class="text-center">- В 1951 году он расширился до 50 м, глубина уменьшилась до 25 м.</p>
+        <p class="text-center">- К 1966 году глубина провала сократилась до 20 м, глубина озера – 28 м.</p>
+        
+        <h3 class="text-lg font-bold text-center mt-4">Гидрология и состав воды</h3>
+        <p class="text-center">- Питание: подземное, устойчивое, осуществляется за счёт грунтовых вод.</p>
+        <p class="text-center">- Цвет воды: насыщенный тёмно-синий из-за минерализации.</p>
+        <p class="text-center">- Жёсткость: 7 мг-экв/л.</p>
+        <p class="text-center">- Минерализация: 630 мг/л.</p>
+        <p class="text-center">- Температура воды: низкая круглый год, что делает озеро некомфортным для купания.</p>
+        <p class="text-center">- Вода чистая и прозрачная, что подтверждено исследованиями.</p>
+        
+        <h3 class="text-lg font-bold text-center mt-4">Исследования и дайвинг</h3>
+        <p class="text-center">- В 1950-х водолазы обнаружили сильные подводные течения, затрудняющие исследование.</p>
+        <p class="text-center">- В 2011 году дайверы подтвердили глубину 25 м.</p>
+        <p class="text-center">- Найден подводный грот глубиной до 5 м.</p>
+        <p class="text-center">- Исследования показали, что в воде нет крупных обитателей, но присутствуют уникальные микроорганизмы.</p>
+        
+        <h3 class="text-lg font-bold text-center mt-4">Охрана и экологические меры</h3>
+        <p class="text-center">- Озеро является памятником природы Татарстана с 1978 года.</p>
+        <p class="text-center">- Установлены аншлаги, проводятся работы по уборке мусора.</p>
+        <p class="text-center">- Вокруг высажены деревья для укрепления берегов.</p>
+        <p class="text-center">- Разрабатывается экотропа с маршрутами и информационными стендами.</p>
+        <p class="text-center">- Проводится мониторинг экологического состояния озера.</p>
+        
+        <h3 class="text-lg font-bold text-center mt-4">Фольклор и легенды</h3>
+        <p class="text-center">- «Чёртово озеро» – местное прозвище из-за мистической истории образования провала.</p>
+        <p class="text-center">- Легенда гласит, что тракторист был наказан за снос церкви и исчез в глубине провала.</p>
+        <p class="text-center">- Вода якобы уходит в подземные реки, но подтверждений этому нет.</p>
+        <p class="text-center">- Местные жители считают место «недобрым» и стараются его избегать.</p>
+        
+        <h3 class="text-lg font-bold text-center mt-4">Интересные факты</h3>
+        <p class="text-center">- Озеро похоже на Морской глаз в Марий Эл.</p>
+        <p class="text-center">- Вода в озере на 10-12 м ниже уровня земли.</p>
+        <p class="text-center">- Вблизи проходит нефтепровод «Дружба», обеспечивающий поставки нефти в Европу.</p>
+        <p class="text-center">- В советские годы из озера добывали воду для полива садов и огородов.</p>
+        <p class="text-center">- Вода в озере настолько прозрачная, что дно видно даже на значительной глубине.</p>        
+        <br>
+        
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Точка перевала
+        </h3>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/Экотропа фотки/bhbhervbhjevbhjeebhj.png" /></div>
+            <div class="swiper-slide"><img src="img/Экотропа фотки/rfbhjebhjvebhwhbevbjheve.jpg" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        
+        <script>
+          const swiper4 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.914232, 52.150012  
+        </p>
+
+        <br>
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Заброшенный карьер
+        </h3>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/ibfebeuhgfwrughfwerguwerg.png" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/1erhrehvgheuegver.png" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/2ierbvhbervbhevhieb.png" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        
+        <script>
+          const swiper5 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.913778, 52.151014
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Описание:
+            Вблизи провала находится заброшенный карьер по добыче
+            строительного песка
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Слой 1. Переслаивание микроплитчатых мергелей и глин
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Слой 2. Песчаники
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Слой 3. Постепенный переход супесей в суглинки и в почву
+        </p>
+
+        <br>
+
+        <h3 class="text-lg font-bold text-center mt-2">
+            Освященный родник «Изге Салкын чишмэ» (Апаковский)
+        </h3>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/9.jpg" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/fgfhhffghgjvvgjhcfchfcfh.jpg" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        
+        <script>
+          const swiper6 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
+        <p class="mt-2 leading-relaxed text-center">
+            Координаты: 54.913062, 52.168973
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Тип объекта: Родник с купелью
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Год обустройства: неизвестен
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Контактная информация: отсутствует
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            История и описание:
+            Освященный родник «Изге Салкын чишмэ» (Апаковский) — благоустроенный источник, расположенный неподалёку от села Калейкино. Родник оборудован открытой купелью, предназначенной для погружения в чистые и прохладные воды. Вода в источнике прозрачная, средней силы дебета.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Над родником установлен открытый павильон, дорожки замощены, обеспечены хорошие подъездные пути. Вдоль автодороги, ведущей к селу Кульшарипово, установлен аншлаг с указанием местоположения источника. Территория вокруг родника ухожена, имеется щебёночная площадка и парковка для автомобилей.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Считается, что родник назван в честь Михаила Николаевича Апакова — мастера на все руки, проживавшего в Калейкино. В праздник Крещения здесь традиционно разжигают костры, окунаются в купель и согреваются у огня, продолжая народные традиции.
+        </p>
+        
+        <br>
+
+        <!-- Additional Recommendations -->
+        <h2 class="text-xl font-bold text-center mt-4">
+          Особенности и дополнительные рекомендации:
+        </h2>
+        <p class="mt-2 leading-relaxed text-center">
+          Одежда и обувь: Подготовьтесь к изменению погодных условий.
+          Рекомендуется носить удобную обувь для походов по лесу (не скользкую и
+          водонепроницаемую) и одежду по погоде. В зимний период возьмите с
+          собой термобелье и теплую куртку.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Питание: Принесите с собой воду и легкие перекусы. Важно поддерживать
+          уровень гидратации, особенно на дальних участках маршрута.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Безопасность: Внимательно следите за своим здоровьем. Если у вас есть
+          заболевания, связанные с физическими нагрузками, сообщите об этом
+          перед походом. На маршруте есть участки с крутыми спусками, поэтому
+          следует быть осторожным. Рекомендуется взять с собой аптечку первой
+          помощи.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Мобильная связь: На некоторых участках маршрута сигнал может быть
+          слабым или отсутствовать. Не забудьте заранее сообщить близким о вашем
+          маршруте.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Лучшее время для посещения: Весна и осень — идеальное время для похода
+          по этому маршруту. Зимой путь может быть сложным из-за снега и льда.
+        </p>
+
+        <!-- Photography Tips -->
+        <h2 class="text-xl font-bold text-center mt-4">
+          Советы для фотографов:
+        </h2>
+        <p class="mt-2 leading-relaxed text-center">
+          Лучшие ракурсы: Рекомендуем сфотографировать Акташский провал с разных
+          углов: с высоты, со стороны, где виден обрыв, и с позиции, где растут
+          редкие растения.
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          Время съемки: Раннее утро или поздний вечер — лучшее время для
+          фотографии, когда солнечный свет делает природу особенно живописной.
+        </p>
+
+        <!-- Conclusion -->
+        <h2 class="text-xl font-bold text-center mt-4">Заключение:</h2>
+        <p class="mt-2 leading-relaxed text-center">
+          Этот маршрут — уникальная возможность насладиться красотой природы
+          Татарстана, узнать об особенностях геологических процессов региона и
+          просто провести время на свежем воздухе. Акташский провал — это не
+          только природная достопримечательность, но и место для личных
+          открытий, фотосессий и отдыха от городской суеты. Мы надеемся, что
+          этот маршрут принесет вам массу положительных впечатлений и
+          незабываемых эмоций!
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

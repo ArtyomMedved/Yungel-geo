@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание Квиза</title>
+    <script>
+        // Добавление нового вопроса
+        function addQuestion() {
+            const container = document.getElementById('questions');
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('question');
+            const questionIndex = container.children.length; // Уникальный индекс для каждого вопроса
+            questionDiv.innerHTML = `
+                <h3>Вопрос:</h3>
+                <input type="text" class="text" placeholder="Текст вопроса">
+                <input type="number" class="time-limit" placeholder="Время на вопрос (в секундах)">
+    
+                <h4>Варианты ответа:</h4>
+                <div class="options">
+                    <div class="option">
+                        <input type="text" placeholder="Текст ответа">
+                        <input type="radio" name="correct_${questionIndex}" value="0"> Правильный ответ
+                    </div>
+                </div>
+                <button onclick="addOption(this, ${questionIndex})">Добавить Вариант</button>
+                <button onclick="removeQuestion(this)">Удалить Вопрос</button>
+            `;
+            container.appendChild(questionDiv);
+        }
+    
+        // Добавление нового варианта ответа
+        function addOption(button, questionIndex) {
+            const optionsContainer = button.previousElementSibling;
+            const optionIndex = optionsContainer.children.length;
+    
+            const optionDiv = document.createElement('div');
+            optionDiv.classList.add('option');
+            optionDiv.innerHTML = `
+                <input type="text" placeholder="Текст ответа">
+                <input type="radio" name="correct_${questionIndex}" value="${optionIndex}"> Правильный
+                <button onclick="removeOption(this)">Удалить Ответ</button>
+            `;
+            optionsContainer.appendChild(optionDiv);
+        }
+
+        // Удаление варианта ответа
+        function removeOption(button) {
+            const optionDiv = button.parentElement;
+            optionDiv.remove();
+        }
+
+        // Удаление вопроса
+        function removeQuestion(button) {
+            const questionDiv = button.parentElement;
+            questionDiv.remove();
+        }
+
+        // Загрузка данных квиза для редактирования
+        async function loadQuiz() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id'); // Получаем ID из URL
+
+            if (!id) return; // Если ID нет, ничего не делаем (режим создания)
+
+            try {
+                const response = await fetch(`/api/quizzes/${id}`);
+                if (!response.ok) {
+                    throw new Error('Failed to load quiz');
+                }
+
+                const quiz = await response.json();
+
+                // Заполняем данные квиза
+                document.getElementById('name').value = quiz.name;
+                document.getElementById('description').value = quiz.description;
+
+                // Заполняем вопросы
+                quiz.questions.forEach((question, questionIndex) => {
+                    addQuestion(); // Добавляем вопрос в DOM
+                    const questionDiv = document.querySelectorAll('.question')[questionIndex];
+                    questionDiv.querySelector('.text').value = question.text;
+                    questionDiv.querySelector('.time-limit').value = question.time_limit;
+
+                    // Заполняем варианты ответа
+                    const optionsContainer = questionDiv.querySelector('.options');
+                    question.options.forEach((option, optionIndex) => {
+                        addOption(questionDiv.querySelector('button'), questionIndex);
+                        const optionDiv = optionsContainer.children[optionIndex];
+                        optionDiv.querySelector('input[type="text"]').value = option.text;
+                        optionDiv.querySelector('input[type="radio"]').checked = option.is_correct;
+                    });
+                });
+            } catch (err) {
+                console.error('Error loading quiz:', err);
+                alert('Failed to load quiz for editing.');
+            }
+        }
+
+        // Сохранение данных квиза
+        async function saveQuiz() {
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+
+            const questions = [];
+            let hasError = false; // Flag for error checking
+
+            document.querySelectorAll('.question').forEach((questionDiv, questionIndex) => {
+                const questionText = questionDiv.querySelector('.text').value;
+                const timeLimit = questionDiv.querySelector('.time-limit').value;
+
+                const options = [];
+                let correctOptionId = null; // Correct option identifier
+
+                const optionInputs = questionDiv.querySelectorAll('.option');
+                optionInputs.forEach((optionDiv, index) => {
+                    const optionText = optionDiv.querySelector('input[type="text"]').value;
+                    const isCorrect = optionDiv.querySelector('input[type="radio"]').checked;
+
+                    options.push({
+                        text: optionText,
+                        isCorrect: isCorrect,
+                    });
+
+                    // If this option is correct, save its index
+                    if (isCorrect) {
+                        correctOptionId = index; // Save the index of the correct option
+                    }
+                });
+
+                if (correctOptionId === null) {
+                    alert(`Please select a correct option for question: ${questionText}`);
+                    hasError = true;
+                    return; // Stop execution if no correct option is selected
+                }
+
+                questions.push({
+                    text: questionText,
+                    timeLimit,
+                    options,
+                    correctOptionId // Add correctOptionId to the question object
+                });
+            });
+
+            if (hasError) return; // If there's an error, stop saving the quiz
+
+            const response = await fetch('/api/quizzes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, description, questions }),
+            });
+
+            if (response.ok) {
+                alert('Quiz saved successfully!');
+                location.href = '/admin.html';
+            } else {
+                alert('Failed to save quiz.');
+            }
+        }
+
+        window.onload = loadQuiz;
+    </script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        #questions {
+            margin-bottom: 20px;
+        }
+
+        .question {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .question h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .question h4 {
+            margin: 10px 0 5px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .option input[type="text"] {
+            flex: 1;
+        }
+
+        .option input[type="radio"] {
+            margin-left: 10px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.add-option {
+            background-color: #28a745;
+            margin-top: 5px;
+        }
+
+        button.add-option:hover {
+            background-color: #218838;
+        }
+
+        button.save {
+            background-color: #dc3545;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        button.save:hover {
+            background-color: #c82333;
+        }
+
+        button.remove {
+            background-color: #dc3545;
+            color: white;
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+
+        button.remove:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Создание Квиза</h1>
+    <input id="name" type="text" placeholder="Название квиза">
+    <textarea id="description" placeholder="Описание квиза"></textarea>
+    <div id="questions"></div>
+    <button onclick="addQuestion()">Добавить вопрос</button>
+    <button onclick="saveQuiz()">Создать Квиз</button>
+</body>
+</html>

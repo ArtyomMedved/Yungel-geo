@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Участники</title>
+    <style>
+        /* Стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 600px; /* Увеличен размер контейнера */
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .section {
+            margin-bottom: 30px; /* Отступ между секциями */
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="file"] {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 10px;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff; /* Цвет кнопки */
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Более темный цвет при наведении */
+        }
+
+        .admin-button {
+            background-color: #28a745; /* Цвет кнопки для управления */
+        }
+
+        .admin-button:hover {
+            background-color: #218838; /* Более темный цвет при наведении */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #007bff; /* Цвет ссылок */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline; /* Подчеркнутые ссылки при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+
+        <!-- Блок документов -->
+        <div class="section" id="documents-section">
+            <h2>Документы</h2>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="document" required>
+                </div>
+                <button type="submit">Загрузить</button>
+            </form>
+            <h3>Загруженные файлы:</h3>
+            <ul id="documents-list"></ul>
+        </div>
+
+        <!-- Блок квизов -->
+        <div class="section" id="quizzes-section">
+            <h2>Квизы</h2>
+            <button class="admin-button" onclick="window.location.href='/admin-quiz'">Создать/Управлять Квизами</button>
+        </div>
+    </div>
+
+    <script>
+        // Получение списка загруженных документов
+        fetch('/documents')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('documents-list');
+                data.forEach(doc => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = doc.url;
+                    link.textContent = doc.filename;
+                    link.target = '_blank';
+                    listItem.appendChild(link);
+                    list.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки документов:', error));
+    </script>
+</body>
+</html>

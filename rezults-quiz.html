@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <script>
+        let quizId = null;
+        let quizName = '';
+
+        // Получаем ID квиза из URL
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            quizId = urlParams.get('id'); // Получаем ID квиза
+            if (quizId) {
+                loadQuizDetails(quizId);
+                loadResults(quizId);
+            } else {
+                alert('Quiz ID is missing.');
+            }
+        };
+
+        // Функция для загрузки деталей квиза (название и описание)
+        async function loadQuizDetails(quizId) {
+            try {
+                const response = await fetch(`/api/quizzes/${quizId}`);
+                const quizData = await response.json();
+                quizName = quizData.name;
+                document.getElementById('quiz-name').textContent = quizName; // Показываем название квиза на странице
+            } catch (err) {
+                console.error('Error loading quiz details:', err);
+                alert('Error loading quiz details.');
+            }
+        }
+
+        // Функция для загрузки результатов
+        async function loadResults(quizId) {
+            try {
+                const response = await fetch(`/api/quizzes/${quizId}/results`);
+                const results = await response.json();
+
+                const tableBody = document.getElementById('results-table-body');
+                results.forEach(result => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${result.team_name}</td><td>${result.correct_answers}</td><td>${result.total_questions}</td>`;
+                    tableBody.appendChild(row);
+                });
+            } catch (err) {
+                console.error('Error loading results:', err);
+                alert('Error loading results.');
+            }
+        }
+    </script>
+    <style>
+        /* Общие стили для страницы результатов */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1, h2 {
+            font-size: 2.5rem;
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 10px;
+        }
+
+        /* Стиль для таблицы */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Стиль для кнопки и заголовка квиза */
+        .quiz-header {
+            font-size: 1.8rem;
+            color: #4a90e2;
+            margin-top: 30px;
+        }
+
+        .quiz-header span {
+            font-weight: bold;
+            color: #ef8354;
+        }
+
+        /* Адаптивный дизайн */
+        @media (max-width: 768px) {
+            table {
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="quiz-name">Загрузка...</h1>
+    <div class="quiz-header">
+        <span>Таблица результатов для квиза: </span>
+        <h2 id="quiz-title"></h2>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Команда</th>
+                <th>Правильные ответы</th>
+                <th>Всего вопросов</th>
+            </tr>
+        </thead>
+        <tbody id="results-table-body">
+            <!-- Результаты будут добавлены сюда через JavaScript -->
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <script>
+        let teamName = '';
+        let correctAnswersCount = 0;
+
+        function startQuiz() {
+            teamName = document.getElementById('team-name').value.trim();
+
+            if (!teamName) {
+                alert('Введите название команды!');
+                return;
+            }
+
+            // Скрываем ввод команды и начинаем загрузку квиза
+            document.getElementById('team-entry').style.display = 'none';
+            const urlParams = new URLSearchParams(window.location.search);
+            const quizId = urlParams.get('id'); // Получаем ID квиза из URL
+            if (quizId) {
+                loadQuiz(quizId);
+            } else {
+                alert("Quiz ID is missing in URL.");
+            }
+        }
+
+        let quizData = {}; // Переменная для хранения данных квиза
+        let currentQuestionIndex = 0;
+        let timerInterval = null;
+        let selectedOptionId = null;
+        let selectedButton = null; // Сохраняем ссылку на выбранную кнопку
+
+        async function loadQuiz(quizId) {
+            try {
+                const response = await fetch(`/api/quizzes/${quizId}`);
+                if (!response.ok) {
+                    alert('Failed to load quiz.');
+                    return;
+                }
+                quizData = await response.json();
+                console.log("Quiz Data:", quizData); // Лог для отладки, выводим данные квиза
+
+                // Проверяем, что квиз действительно загружен
+                if (!quizData || !quizData.questions || quizData.questions.length === 0) {
+                    alert("No questions found in quiz.");
+                    return;
+                }
+
+                document.getElementById('quiz-title').textContent = quizData.name;
+                document.getElementById('quiz-description').textContent = quizData.description;
+                displayQuestion(); // Показываем первый вопрос
+            } catch (err) {
+                console.error('Error loading quiz:', err);
+                alert('Error loading quiz.');
+            }
+        }
+
+        function displayQuestion() {
+            const question = quizData.questions[currentQuestionIndex];
+            if (!question) {
+                alert('Квиз окнчен!');
+                location.href = '/'; // Перенаправление после завершения квиза
+                return;
+            }
+
+            // Обновляем текст вопроса
+            document.getElementById('question-text').textContent = question.text;
+            document.getElementById('question-timer').textContent = question.time_limit;
+
+            // Очищаем контейнер для вариантов
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+
+            // Добавляем кнопки с вариантами
+            question.options.forEach((option) => {
+                const optionButton = document.createElement('button');
+                optionButton.textContent = option.text;
+                optionButton.onclick = () => selectOption(option.id, optionButton);
+                optionsContainer.appendChild(optionButton);
+            });
+
+            startTimer(question.time_limit); // Начинаем отсчет времени
+        }
+
+        function selectOption(optionId, buttonElement) {
+    // Если был выбран другой вариант, сбрасываем подсветку предыдущего
+    if (selectedButton) {
+        selectedButton.style.backgroundColor = ''; // Сброс подсветки
+    }
+
+    // Подсвечиваем выбранный вариант
+    buttonElement.style.backgroundColor = "#ffeb3b"; // Желтый цвет, как подсветка
+    selectedButton = buttonElement; // Сохраняем выбранную кнопку
+
+    // Присваиваем выбранный вариант правильной переменной
+    quizData.selectedOptionId = optionId; // Сохраняем выбранный вариант в объекте
+}
+
+
+
+        function startTimer(timeLimit) {
+            let timeLeft = timeLimit;
+            const timerElement = document.getElementById('question-timer');
+            // Очищаем старый таймер
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    checkAnswer(); // После окончания времени проверяем ответ
+                }
+            }, 1000);
+        }
+
+        function checkAnswer() {
+    const question = quizData.questions[currentQuestionIndex];
+    const correctOptionId = question.options.find(option => option.is_correct).id;
+
+    console.log('Selected Option:', quizData.selectedOptionId); // Используем quizData.selectedOptionId
+    console.log('Correct Option:', correctOptionId);
+
+    // Сравниваем выбранный ответ
+    if (quizData.selectedOptionId === correctOptionId) {
+        correctAnswersCount++;
+    }
+
+    // Показываем правильный вариант ответа
+    const optionsButtons = document.querySelectorAll('#options button');
+    optionsButtons.forEach(button => {
+        const optionId = question.options.find(option => option.text === button.textContent)?.id;
+        if (optionId === correctOptionId) {
+            button.style.backgroundColor = "#4caf50"; // Зеленый для правильного ответа
+        } else if (optionId === quizData.selectedOptionId && quizData.selectedOptionId !== correctOptionId) {
+            button.style.backgroundColor = "#f44336"; // Красный для неправильного ответа
+        }
+    });
+
+    // Переходим к следующему вопросу через 1 секунду
+    setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.questions.length) {
+            displayQuestion();
+        } else {
+            finishQuiz(); // Завершение квиза
+        }
+    }, 1000);
+}
+
+
+
+        // Заключение квиза
+        async function finishQuiz() {
+            const totalQuestions = quizData.questions.length;
+
+            alert(`Квиз завершен! Итог команды "${teamName}": ${correctAnswersCount}/${totalQuestions}`);
+
+            // Сохраняем результаты в базу данных
+            try {
+                const response = await fetch('/api/quizzes/results', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        quizId: quizData.id,
+                        teamName: teamName,
+                        correctAnswers: correctAnswersCount,
+                        totalQuestions: totalQuestions
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save results.');
+                }
+
+                alert('Результаты сохранены.');
+                // Скрываем все элементы и показываем кнопку
+                document.body.innerHTML = '';
+                const button = document.createElement('button');
+                button.textContent = 'Посмотреть результаты';
+                button.onclick = () => {
+                    const quizId = new URLSearchParams(window.location.search).get('id');
+                    if (quizId) {
+                        window.location.href = '/results?id=' + quizId;
+                    }
+                };
+                button.style.fontSize = '1.5rem';
+                button.style.padding = '20px 40px';
+                button.style.backgroundColor = '#4CAF50';
+                button.style.color = 'white';
+                button.style.border = 'none';
+                button.style.borderRadius = '5px';
+                button.style.cursor = 'pointer';
+                document.body.appendChild(button);
+            } catch (err) {
+                console.error('Error saving results:', err);
+                alert('Ошибка при сохранении результатов.');
+            }
+        }
+
+    </script>
+    <style>
+     /* Общие стили для сайта */
+body {
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle, #2d3142, #4f5d75);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Заголовок квиза */
+#quiz-title {
+    font-size: 3rem;
+    margin: 20px 0;
+    color: #ef8354;
+    text-shadow: 0 4px 10px rgba(239, 131, 84, 0.5);
+}
+
+/* Описание квиза */
+#quiz-description {
+    font-size: 1.4rem;
+    margin-bottom: 40px;
+    padding: 0 20px;
+    max-width: 800px;
+    line-height: 1.6;
+    color: #d9d9d9;
+}
+
+/* Вопрос */
+#question-text {
+    font-size: 2rem;
+    margin: 20px 0;
+    color: #ffffff;
+}
+
+/* Таймер */
+#question-timer {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #f9c74f;
+    margin: 10px 0;
+    text-shadow: 0 2px 6px rgba(249, 199, 79, 0.7);
+}
+
+/* Контейнер для вариантов */
+#options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px auto;
+    max-width: 100%; /* Контейнер не превышает ширину экрана */
+    padding: 10px;
+}
+
+
+/* Кнопки вариантов */
+#options button {
+    flex: 1 1 200px; /* Минимальная ширина 200px */
+    max-width: 250px; /* Ограничение на максимальную ширину */
+    min-width: 150px; /* Минимальная ширина */
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 12px;
+    color: #ffffff;
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Увеличение кнопки при наведении */
+#options button:hover {
+    background-color: #77aaff;
+    transform: scale(1.05);
+}
+
+/* Кнопка при нажатии */
+#options button:active {
+    background-color: #ef8354;
+    color: #ffffff;
+    transform: scale(0.98);
+}
+
+/* Правильный ответ */
+#options button.correct {
+    background-color: #43aa8b !important;
+    color: #ffffff;
+}
+
+/* Неправильный ответ */
+#options button.wrong {
+    background-color: #d62828 !important;
+    color: #ffffff;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    #quiz-title {
+        font-size: 2.5rem;
+    }
+
+    #question-text {
+        font-size: 1.8rem;
+    }
+
+    #quiz-description {
+        font-size: 1.2rem;
+    }
+
+    #options {
+        gap: 10px; /* Уменьшаем расстояние между кнопками */
+    }
+
+    #options button {
+        flex: 1 1 100%; /* Кнопки занимают всю ширину контейнера */
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <h1 id="quiz-title"></h1>
+    <p id="quiz-description"></p>
+
+    <div id="team-entry" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+        <input id="team-name" type="text" placeholder="Введите название команды" style="padding: 10px; font-size: 1rem; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 10px;" />
+        <button onclick="startQuiz()" style="padding: 10px 20px; font-size: 1rem; background-color: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer;">Начать квиз</button>
+    </div>    
+
+    <div>
+        <h2 id="question-text"></h2>
+        <p>Осталось: <span id="question-timer"></span></p>
+        <div id="options"></div>
+    </div>
+</body>
+</html>

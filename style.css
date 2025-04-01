@@ -1,0 +1,737 @@
+/* Основные стили для страницы */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    padding-top: 80px; /* Отступ равный высоте заголовка */
+}
+
+/* Стили для верхнего колонтитула */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.brand-name {
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+.navbar a {
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.participants-button {
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border: 1px solid #333;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Стили для секции с описанием */
+.intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    padding: 0 20px;
+    gap: 50px;
+}
+
+.text-content {
+    max-width: 600px;
+    text-align: left;
+}
+
+.intro h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.intro p {
+    line-height: 1.6;
+}
+
+/* Стили для коллажа и точек */
+.collage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.collage {
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+
+.collage-image {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+.collage-image.active {
+    opacity: 1;
+}
+
+.collage-image.fade {
+    opacity: 0;
+}
+
+.dots-container {
+    text-align: center;
+    margin-top: 1px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: #717171;
+}
+
+/* Стили для секции новостей */
+.news {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 800px;
+    text-align: center;
+}
+
+.news h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.news-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.news-image {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.news-text {
+    max-width: 60%;
+}
+
+.news-text h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Стили для карты с метками */
+.maps { 
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.eco-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.eco-button:hover {
+    background: #388E3C;
+}
+
+/* Стили для секции видеоматериалов */
+.videos {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 800px;
+    text-align: center;
+}
+
+.videos h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.video-container iframe {
+    max-width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    border: none;
+}
+
+
+/* Стили для секции галереи */
+.gallery {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 1200px; /* Увеличен max-width для большего пространства */
+    text-align: center;
+}
+
+.gallery h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Сетка с автоадаптацией */
+    gap: 15px;
+    justify-content: center;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 250px; /* Увеличен размер изображения */
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+}
+/* Стили для секции квизов */
+.quiz-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto; /* Центрирует контейнер */
+}
+
+.quiz-container h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#quiz-list {
+    list-style: none; /* Убирает стандартные маркеры */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%; /* Занимает всю доступную ширину */
+}
+
+#quiz-list li {
+    background-color: #f9f9f9; /* Светлый фон */
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center; /* Центрирует текст */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex; /* Включаем flexbox */
+    justify-content: space-between; /* Разделяем элементы на противоположные края */
+    align-items: center; /* Выравниваем по вертикали */
+}
+
+#quiz-list li:hover {
+    background-color: #e0e0e0; /* Цвет при наведении */
+    transform: translateY(-3px); /* Легкое поднятие при наведении */
+}
+
+#quiz-list li:active {
+    transform: translateY(0); /* Возвращает при нажатии */
+}
+
+#quiz-list button {
+    margin-left: 15px; /* Отступ от текста для кнопки */
+    padding: 8px 16px; /* Размер кнопки */
+    font-size: 14px; /* Размер шрифта */
+    background-color: #4CAF50; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none; /* Убираем стандартную обводку */
+    border-radius: 5px; /* Скругление углов */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#quiz-list button:hover {
+    background-color: #45a049; /* Цвет при наведении на кнопку */
+}
+
+/* Для второй кнопки */
+#quiz-list button:nth-child(2) {
+    background-color: #2196F3; /* Голубой цвет для новой кнопки */
+}
+
+#quiz-list button:nth-child(2):hover {
+    background-color: #1e88e5; /* Цвет при наведении для новой кнопки */
+}
+
+
+
+/* Стиль модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 100px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#quizLink {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+/* Стили для секции контактной информации */
+.contact-info {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 800px;
+    text-align: center;
+}
+
+.contact-info h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Стили для участников */
+.participants-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.participant {
+    text-align: center;
+    max-width: 150px;
+}
+
+.participant-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.participant h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.participant p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Контактные данные организации */
+.organization-contact {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.organization-contact p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.support-info {
+    margin-top: 40px;
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9; /* Добавление светлого фона */
+    border-radius: 10px; /* Скругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для визуальной глубины */
+}
+
+.support-info h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.support-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Расстояние между логотипами */
+}
+
+.logo-image {
+    max-width: 200px; /* Ограничение по ширине */
+    max-height: 100px;
+    height: auto; /* Автоматическое сохранение пропорций */
+    object-fit: contain; /* Уменьшение или обрезка изображения для аккуратности */
+    border-radius: 5px; /* Слегка скругленные углы */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Анимация при наведении */
+}
+
+.logo-image:hover {
+    transform: scale(1.1); /* Увеличение логотипа при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Увеличение тени при наведении */
+}
+
+/* Плавное появление элементов при прокрутке */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Эффект наведения на ссылки меню */
+.navbar a {
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Эффект масштабирования изображений галереи при наведении */
+.gallery-image {
+    transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+}
+
+/* Эффект для кнопки */
+.participants-button {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.participants-button:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Плавный переход для изображений в слайдере */
+.collage-image.fade {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.collage-image.active {
+    opacity: 1;
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 768px) {
+    /* Шапка сайта */
+    .header {
+        padding: 1px;
+        margin-left: 5px;
+        margin-right: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo {
+        height: 30px;
+        margin-bottom: 10px;
+    }
+
+    .brand-name {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .navbar a {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .participants-button {
+        font-size: 14px;
+        padding: 2px 2px;
+    }
+
+    /* Контент */
+    .intro {
+        flex-direction: column;
+        gap: 15px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .intro h2 {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .text-content {
+        max-width: 100%;
+        text-align: justify;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .collage-container {
+        width: 100%;
+        margin-top: 1px;
+    }
+
+    .collage {
+        display: flex;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .collage-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .dots-container {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #aaa;
+        cursor: pointer;
+    }
+
+    .dot.active {
+        background-color: #333;
+    }
+
+    /* Секция новостей */
+    .news-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .news-image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    .news-text {
+        max-width: 100%;
+        font-size: 16px;
+    }
+
+    /* Видеоматериалы */
+    .videos {
+        padding: 10px;
+    }
+
+    .video-container iframe {
+        width: 100%;
+        height: 200px;
+        margin-top: 10px;
+    }
+
+    /* Галерея */
+    .gallery-container {
+        gap: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Контактная информация */
+    .participants-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .participant {
+        max-width: 100px;
+        text-align: center;
+    }
+
+    .participant-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 5px;
+    }
+
+    .organization-contact p {
+        font-size: 14px;
+    }
+    
+}
+
+
+/* Убираем горизонтальный скроллинг */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Обнуляем отступы для мобильных устройств */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    /* Уменьшаем отступы для текста и изображения */
+    .intro {
+        margin-bottom: 0;
+    }
+
+    .text-content {
+        margin-bottom: 0; /* Убираем отступ между текстом и изображением */
+    }
+
+    .collage-container {
+        margin-top: -70px; /* Поднимаем изображение вверх, уменьшая расстояние */
+    }
+
+    .news-image {
+        display: block;
+        margin: 0 auto; /* Центрирует изображение */
+        max-width: 80%; /* Ограничивает ширину изображения, чтобы оно не выходило за пределы экрана */
+        height: auto;
+    }
+}

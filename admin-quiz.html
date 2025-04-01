@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление Квизами</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #admin-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #admin-list li {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: box-shadow 0.3s;
+        }
+
+        #admin-list li:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.edit {
+            background-color: #28a745;
+        }
+
+        button.edit:hover {
+            background-color: #218838;
+        }
+
+        button.delete {
+            background-color: #dc3545;
+        }
+
+        button.delete:hover {
+            background-color: #c82333;
+        }
+
+        .create-quiz-btn {
+            display: block;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .create-quiz-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+    </style>
+    <script>
+        async function fetchQuizzes() {
+            try {
+                const response = await fetch('/api/quizzes');
+                const quizzes = await response.json();
+                const adminList = document.getElementById('admin-list');
+
+                adminList.innerHTML = ''; // Очистка списка перед обновлением
+
+                quizzes.forEach(quiz => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span>${quiz.name}</span>
+                        <div>
+                            <button class="delete" onclick="deleteQuiz(${quiz.id})">Delete</button>
+                        </div>
+                    `;
+                    adminList.appendChild(li);
+                });
+            } catch (err) {
+                console.error('Failed to fetch quizzes:', err);
+            }
+        }
+
+        async function deleteQuiz(id) {
+            try {
+                const response = await fetch(`/api/quizzes/${id}`, { method: 'DELETE' });
+                if (response.ok) {
+                    alert('Quiz deleted');
+                    fetchQuizzes(); // Обновление списка после удаления
+                } else {
+                    const error = await response.json();
+                    alert(`Failed to delete quiz: ${error.error}`);
+                }
+            } catch (err) {
+                console.error('Failed to delete quiz:', err);
+            }
+        }
+
+        async function editQuiz(id) {
+            location.href = `/create-quiz.html?id=${id}`;
+        }
+
+        window.onload = fetchQuizzes;
+    </script>
+</head>
+<body>
+    <h1>Управление Квизами</h1>
+    <a href="/create-quiz" class="create-quiz-btn">Создать Квиз</a>
+    <ul id="admin-list"></ul>
+</body>
+</html>
