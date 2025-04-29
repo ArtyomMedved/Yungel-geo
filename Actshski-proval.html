@@ -87,6 +87,30 @@
       .swiper-button-prev {
         color: #f28c28;
       }
+
+      .support-info {
+    margin-top: 40px;
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9; /* Добавление светлого фона */
+    border-radius: 10px; /* Скругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для визуальной глубины */
+}
+
+.support-info h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.support-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Расстояние между логотипами */
+}
+      
       /* Адаптация для мобильных устройств */
       @media (max-width: 768px) {
       body {
@@ -215,7 +239,7 @@
           </div>
           <div class="flex items-center space-x-2">
             <i class="fas fa-map-marker-alt"></i>
-            <span>Тип маршрута: Пешеходный и велосипедный</span>
+            <span>Тип маршрута: Пешеходный и велосипедный, кольцевой</span>
           </div>
         </div>
       </div>
@@ -635,6 +659,62 @@
         
         <br>
 
+        <!-- Route Details -->
+        <h2 class="text-xl font-bold text-center mt-4">Маршрут:</h2>
+        <h3 class="text-lg font-bold text-center mt-2">
+          Конечная точка: Железнодорожная станция Альметьевская (Калейкино).
+        </h3>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/XXL_height.webp" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/fhrwhwehwehw.webp" /></div>
+            <div class="swiper-slide"><img src="./img/Экотропа фотки/wfewewwecwwc.webp" /></div>
+          </div>
+          <!-- Кнопки навигации -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        
+        <script>
+          const swiper7 = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Сколько картинок видно сразу
+            spaceBetween: 20, // Расстояние между фото
+            loop: true, // Бесконечная прокрутка
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        </script>
+        
+        <p class="mt-2 leading-relaxed text-center">
+          Координаты старта: 54.919396, 52.138728
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Тип объекта: Железнодорожная станция
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Официальное название: Альметьевская
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Год основания: 1960 год
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Адрес: Республика Татарстан, Альметьевский район, посёлок железнодорожной станции Калейкино
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+            Контактный телефон: 8 (8553) 34-17-51
+        </p>
+        <p class="mt-2 leading-relaxed text-center">
+          <p class="mt-2 leading-relaxed text-center">
+            Железнодорожная станция Калейкино (Альметьевская) была открыта в 1960 году на линии Агрыз–Акбаш, в 13 км от Альметьевска. Её строительство связано с развитием нефтяной промышленности. В 1989 году станция получила название "Альметьевская", но в обиходе сохраняется старое название.
+            В первые десятилетия станция играла ключевую роль в перевозке грузов для нефтяных и строительных предприятий. В 1970-х, с ростом промышленных проектов, её статус повысили до II класса, но к 2000-м она стала промежуточной IV класса. Сейчас станция оживляется в сезоны посевных работ и доставки удобрений.
+            Станция обслуживает грузовые и пассажирские перевозки, принимает повагонные отправки и продаёт билеты на поезда. Она остаётся важным транспортным узлом, обеспечивающим экономическое развитие региона.
+          </p>
+        </p>
+
+        <br>
+
         <!-- Additional Recommendations -->
         <h2 class="text-xl font-bold text-center mt-4">
           Особенности и дополнительные рекомендации:
@@ -691,6 +771,21 @@
           этот маршрут принесет вам массу положительных впечатлений и
           незабываемых эмоций!
         </p>
+
+        <!-- Блок с логотипом и поддержкой -->
+      <div class="support-info fade-in">
+        <br />
+        <h3>При поддержке</h3>
+        <div class="support-logo">
+          <a href="https://tngalgis.ru/">
+          <img
+            src="img/contact-info/logo_tng.png"
+            alt="Логотип компании 1"
+            class="logo-image"
+          />
+        </a>
+        </div>
+      </div>
       </div>
     </div>
   </body>
